@@ -1,0 +1,182 @@
+@startuml
+' ==========================
+' CONFIG
+' ==========================
+hide circle
+skinparam classAttributeIconSize 0
+
+' ==========================
+' ENUMERACIONES
+' ==========================
+enum TipoTarea {
+  ALIMENTACION
+  CAPTURA_CASTRACION
+  CONTROL_VETERINARIO
+  TRANSPORTE_HOGAR_TRANSITORIO
+}
+
+enum EstadoSalud {
+  ENFERMO
+  SANO
+  EN_TRATAMIENTO
+}
+
+enum TipoAdopcion {
+  TRANSITORIA
+  DEFINITIVA
+}
+
+enum EstadoAdopcion {
+  PENDIENTE
+  ACTIVA
+  FINALIZADA
+  CANCELADA
+}
+
+enum TipoRegistroMedico {
+  DIAGNOSTICO
+  TRATAMIENTO
+  ESTUDIO
+  CERTIFICADO
+}
+
+' ==========================
+' CLASES BASE (ROLES)
+' ==========================
+class Usuario {
+  - id: int
+  - nombre: String
+  - email: String
+  - password: String
+}
+
+class Voluntario {
+  - zona: String
+  + registrarGato(g: Gato)
+  + registrarTarea(t: Tarea)
+  + asignarGatoFamilia(g: Gato, f: FamiliaAdoptante, tipo: TipoAdopcion): Adopcion
+  + registrarVisita(a: Adopcion, v: Visita)
+}
+
+class Veterinario {
+  + accederHistorial(g: Gato): HistorialMedico
+  + crearRegistro(g: Gato, r: RegistroMedico)
+  + emitirCertificado(g: Gato, descripcion: String): RegistroMedico
+}
+
+class Administrador {
+  + registrarUsuario(u: Usuario)
+  + gestionarZonas()
+  + verReportes(): List<Reporte>
+}
+
+class FamiliaAdoptante {
+  - direccion: String
+  + registrarse()
+  + verPerfilesGatos(): List<Gato>
+  + postularseAdopcion(g: Gato)
+}
+
+Usuario <|-- Voluntario
+Usuario <|-- Veterinario
+Usuario <|-- Administrador
+Usuario <|-- FamiliaAdoptante
+
+' ==========================
+' CLASES DEL DOMINIO
+' ==========================
+class Gato {
+  - id: int
+  - nombre: String
+  - color: String
+  - caracteristicas: String
+  - foto: String
+  - zona: String
+  - estadoSalud: EstadoSalud
+  - qr: String
+  - esterilizado: boolean
+  + actualizarEstado(e: EstadoSalud)
+}
+
+class Tarea {
+  - id: int
+  - tipo: TipoTarea
+  - fecha: Date
+  - hora: Time
+  - ubicacion: String
+  - observaciones: String
+}
+
+class HistorialMedico {
+  + agregarRegistro(r: RegistroMedico)
+}
+
+class RegistroMedico {
+  - id: int
+  - tipo: TipoRegistroMedico
+  - fecha: Date
+  - descripcion: String
+  - archivoEstudio: String
+}
+
+class Adopcion {
+  - id: int
+  - tipo: TipoAdopcion
+  - estado: EstadoAdopcion
+  - fechaInicio: Date
+  - fechaFin: Date
+  + finalizar(fecha: Date, estado: EstadoAdopcion)
+}
+
+class Visita {
+  - id: int
+  - fecha: Date
+  - observaciones: String
+  - resultado: String
+}
+
+class Zona {
+  - id: int
+  - nombre: String
+}
+
+class Reporte {
+  - id: int
+  - tipo: String
+  - datos: String
+}
+
+' ==========================
+' RELACIONES
+' ==========================
+' Gato y tareas/historial
+Gato "1" o-- "*" Tarea
+Gato "1" o-- "1" HistorialMedico
+HistorialMedico "1" o-- "*" RegistroMedico
+RegistroMedico "*" --> "1" Veterinario : autor
+
+' Adopciones y visitas
+Gato "1" --> "0..*" Adopcion
+FamiliaAdoptante "1" --> "0..*" Adopcion
+Adopcion "1" o-- "0..*" Visita
+Visita "*" --> "1" Voluntario : registradaPor
+
+' Roles operativos
+Voluntario "1" --> "*" Tarea : realiza
+Voluntario "1" --> "0..*" Gato : registra
+Veterinario "1" --> "0..*" Gato : atiende >
+
+' Zonas y reportes
+Zona "1" o-- "*" Gato
+Administrador --> Zona : gestionar >
+Administrador "1" --> "*" Reporte
+
+
+Tarea ..> TipoTarea
+Gato ..> EstadoSalud
+Adopcion ..> TipoAdopcion
+Adopcion ..> EstadoAdopcion
+RegistroMedico ..> TipoRegistroMedico
+
+@enduml
+
