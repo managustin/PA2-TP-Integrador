@@ -10,12 +10,12 @@ package colonia.gatos;
  */
 public class Usuario {
     
-    int id;
-    String nombre, email, password;
+    private int id;
+    private String nombre, email, password;
     
     Usuario(int id, String nom, String email, String password){
         this.id = id;
-        this.nombre = nom;
+            this.nombre = nom;
         this.email = email;
         this.password = password;
     }

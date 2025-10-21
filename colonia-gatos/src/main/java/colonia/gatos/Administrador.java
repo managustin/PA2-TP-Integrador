@@ -19,3 +19,4 @@ public class Administrador extends Usuario{
         return new Usuario(nombre, email, password);
     }
 }
+
