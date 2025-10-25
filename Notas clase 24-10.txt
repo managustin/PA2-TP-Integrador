@@ -1,0 +1,6 @@
+Preguntas a hacer al profe sobre el tpi.
+
+1) cantidad de puntos/consignas para regularizar.
+2) Qué onda con el código QR y la implementación de mapas.
+
+La parte web entra en el final.

@@ -13,9 +13,15 @@ public class Usuario {
     private int id;
     private String nombre, email, password;
     
+    Usuario(String nom, String email, String password){
+        this.nombre = nom;
+        this.email = email;
+        this.password = password;
+    }
+    
     Usuario(int id, String nom, String email, String password){
         this.id = id;
-            this.nombre = nom;
+        this.nombre = nom;
         this.email = email;
         this.password = password;
     }
