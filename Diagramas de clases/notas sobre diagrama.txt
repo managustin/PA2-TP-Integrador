@@ -1,0 +1,6 @@
+la relación entre gato y tarea debería ser composición: gato 1 rombo_negro a 0..* tareas; ya que el gato puede existir sin las tareas, pero las tareas no pueden existir sin el gato, i.e., no se "agregan" tareas al gato.
+
+rever emitirCertificado() en veterinario.
+
+reformular Zona y ver cómo implementar lo de gestionarZonas del administrador
+Cambiar Gato.zona por tipo Zona

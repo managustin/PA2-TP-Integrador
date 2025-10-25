@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package colonia.gatos;
+package modelo;
 
 /**
  *
@@ -15,6 +15,9 @@ public class Zona {
     
     Zona(int id, String nombre){
         this.id = id;
+        this.nombre = nombre;
+    }
+    Zona(String nombre){
         this.nombre = nombre;
     }
     

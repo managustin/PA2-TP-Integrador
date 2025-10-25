@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package colonia.gatos;
+package modelo;
 
 /**
  *
@@ -16,8 +16,12 @@ package colonia.gatos;
  */
 public class Administrador extends Usuario{
     
-    Administrador(String nombre, String email, String password){
+    public Administrador(String nombre, String email, String password){
         super(nombre, email, password);
+    }
+
+    public Administrador(int id, String nom, String email, String password) {
+        super(id, nom, email, password);
     }
 }
 
