@@ -24,6 +24,11 @@ public class Gato {
     private List<Tarea> tareas = new ArrayList<>();
     private HistorialMedico historial = new HistorialMedico();
     
+    public Gato(String nombre, String foto) {
+        this.nombre = nombre;
+        this.foto = foto;
+    }
+    
     public Gato(String nombre, String color, String caracteristicas, String foto, Zona zona, EstadoSalud estadoSalud, String qr, boolean esterilizado) {
         this.nombre = nombre;
         this.color = color;

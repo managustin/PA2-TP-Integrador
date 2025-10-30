@@ -4,7 +4,7 @@
  */
 package vista;
 
-import javax.swing.JFrame;
+import Controlador.LoginControlador;
 
 /**
  *
@@ -13,14 +13,13 @@ import javax.swing.JFrame;
 public class VentanaInicioSesion extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaInicioSesion.class.getName());
-
+    private LoginControlador loginControlador;
     /**
      * Creates new form VentanaInicioSesion
      */
     public VentanaInicioSesion() {
         initComponents();
         //this.setExtendedState(JFrame.MAXIMIZED_BOTH); PARA QUE ESTÉ MAXIMIZADA
-        
     }
 
     /**
@@ -32,20 +31,15 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelTipoUsuario = new javax.swing.JPanel();
-        btnFamiliaAdoptante = new javax.swing.JButton();
-        btnVoluntario = new javax.swing.JButton();
-        btnVeterinario = new javax.swing.JButton();
-        btnAdministrador = new javax.swing.JButton();
         panelPrincipal = new javax.swing.JPanel();
         panelRellenoIzq = new javax.swing.JPanel();
         panelCentro = new javax.swing.JPanel();
         panelEmail = new javax.swing.JPanel();
         labelEmail = new javax.swing.JLabel();
-        emailField = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
         panelPassword = new javax.swing.JPanel();
         labelPassword = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        txtPassword = new javax.swing.JPasswordField();
         panelBotones = new javax.swing.JPanel();
         btnIngresar = new javax.swing.JButton();
         btnRegistrarse = new javax.swing.JButton();
@@ -61,23 +55,6 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(600, 500));
 
-        panelTipoUsuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        panelTipoUsuario.setLayout(new java.awt.GridLayout(1, 3, 60, 25));
-
-        btnFamiliaAdoptante.setText("Familia Adoptante");
-        panelTipoUsuario.add(btnFamiliaAdoptante);
-
-        btnVoluntario.setText("Voluntario");
-        panelTipoUsuario.add(btnVoluntario);
-
-        btnVeterinario.setText("Veterinario");
-        panelTipoUsuario.add(btnVeterinario);
-
-        btnAdministrador.setText("Administrador");
-        panelTipoUsuario.add(btnAdministrador);
-
-        getContentPane().add(panelTipoUsuario, java.awt.BorderLayout.PAGE_START);
-
         panelPrincipal.setLayout(new java.awt.BorderLayout());
 
         panelRellenoIzq.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 50, 1, 1));
@@ -90,7 +67,7 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
         );
         panelRellenoIzqLayout.setVerticalGroup(
             panelRellenoIzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 349, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         panelPrincipal.add(panelRellenoIzq, java.awt.BorderLayout.LINE_START);
@@ -103,7 +80,7 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
         labelEmail.setText("Correo Electrónico");
         labelEmail.setToolTipText("");
         panelEmail.add(labelEmail);
-        panelEmail.add(emailField);
+        panelEmail.add(txtEmail);
 
         panelCentro.add(panelEmail);
 
@@ -113,15 +90,19 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
         labelPassword.setText("Contraseña");
         labelPassword.setToolTipText("");
         panelPassword.add(labelPassword);
-        labelPassword.getAccessibleContext().setAccessibleName("Contraseña");
-
-        panelPassword.add(jPasswordField1);
+        panelPassword.add(txtPassword);
 
         panelCentro.add(panelPassword);
 
+        panelBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1));
         panelBotones.setLayout(new java.awt.GridLayout(1, 0, 100, 0));
 
         btnIngresar.setText("Ingresar");
+        btnIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngresarActionPerformed(evt);
+            }
+        });
         panelBotones.add(btnIngresar);
 
         btnRegistrarse.setText("Crear Cuenta");
@@ -146,7 +127,7 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
         );
         panelRellenoDerLayout.setVerticalGroup(
             panelRellenoDerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 349, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         panelPrincipal.add(panelRellenoDer, java.awt.BorderLayout.EAST);
@@ -163,6 +144,10 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+        loginControlador.procesarLogin(); // llama al controlador
+    }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,18 +175,12 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdministrador;
-    private javax.swing.JButton btnFamiliaAdoptante;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnRegistrarse;
     private javax.swing.JButton btnRestablecerPass;
-    private javax.swing.JButton btnVeterinario;
-    private javax.swing.JButton btnVoluntario;
-    private javax.swing.JTextField emailField;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JPanel panelBoton;
@@ -212,6 +191,20 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelRellenoDer;
     private javax.swing.JPanel panelRellenoIzq;
-    private javax.swing.JPanel panelTipoUsuario;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
+    
+    
+    public void setLoginControlador(LoginControlador ctrl) {
+        this.loginControlador = ctrl;
+    }
+
+    public String getEmail(){
+        return txtEmail.getText();
+    }
+    public String getPassword(){
+        return new String(txtPassword.getPassword());
+    }
+    
 }

@@ -11,6 +11,7 @@ import modelo.Usuario;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.SwingUtilities;
+import modelo.FamiliaAdoptante;
 import vista.VentanaInicioSesion;
 /**
  *
@@ -35,8 +36,10 @@ public class Main {
         
         SwingUtilities.invokeLater(() -> {
             VentanaInicioSesion v = new VentanaInicioSesion();
+            LoginControlador ctrl = new LoginControlador(v);
             v.setLocationRelativeTo(null); // centra en pantalla
             v.setVisible(true);
         });
+        
     }
 }
