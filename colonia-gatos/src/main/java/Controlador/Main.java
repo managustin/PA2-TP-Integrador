@@ -21,7 +21,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Bienvenido al sistema de la colonia de gatos");
-        
+        /*
         Usuario u1 = new Usuario(1, "Juan", "correo@correo.com", "conTrasenia");
         System.out.println("El usuario u1 tiene el id " + u1.verId()+ " y el nombre es " + u1.verNombre());
         
@@ -32,7 +32,7 @@ public class Main {
         t1.setObservaciones("Se observan más observaciones");
         
         System.out.println(t1.getObservaciones());
-        
+        */
         
         SwingUtilities.invokeLater(() -> {
             VentanaInicioSesion v = new VentanaInicioSesion();

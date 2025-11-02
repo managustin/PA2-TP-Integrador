@@ -4,6 +4,13 @@
  */
 package modelo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +18,12 @@ import java.util.List;
  *
  * @author Mango
  */
+@Entity
 public class Gato {
-    private int id;
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id_gato;
     private String nombre;
     private String color;
     private String caracteristicas;
@@ -22,14 +33,19 @@ public class Gato {
     private String qr;
     private boolean esterilizado;
     private List<Tarea> tareas = new ArrayList<>();
+    @OneToOne
     private HistorialMedico historial = new HistorialMedico();
     
-    public Gato(String nombre, String foto) {
-        this.nombre = nombre;
-        this.foto = foto;
+
+    @ManyToOne
+    @JoinColumn(name="id")
+    private Voluntario volun;
+
+    public Gato() {
     }
-    
-    public Gato(String nombre, String color, String caracteristicas, String foto, Zona zona, EstadoSalud estadoSalud, String qr, boolean esterilizado) {
+
+    public Gato(int id_gato, String nombre, String color, String caracteristicas, String foto, Zona zona, EstadoSalud estadoSalud, String qr, boolean esterilizado, Voluntario volun) {
+        this.id_gato = id_gato;
         this.nombre = nombre;
         this.color = color;
         this.caracteristicas = caracteristicas;
@@ -38,24 +54,14 @@ public class Gato {
         this.estadoSalud = estadoSalud;
         this.qr = qr;
         this.esterilizado = esterilizado;
-    }
-    
-    public Gato(int id, String nombre, String color, String caracteristicas, String foto, Zona zona, EstadoSalud estadoSalud, String qr, boolean esterilizado) {
-        this.id = id;
-        this.nombre = nombre;
-        this.color = color;
-        this.caracteristicas = caracteristicas;
-        this.foto = foto;
-        this.zona = zona;
-        this.estadoSalud = estadoSalud;
-        this.qr = qr;
-        this.esterilizado = esterilizado;
+        this.volun = volun;
     }
 
     
+    
     // ----------------------------- Getters ----------------------------- 
-    public int getId() {
-        return id;
+    public int getIdGato() {
+        return id_gato;
     }
 
     public String getNombre() {
@@ -99,8 +105,8 @@ public class Gato {
     }
     // ----------------------------- Setters ----------------------------- 
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int id_gato) {
+        this.id_gato = id_gato;
     }
 
     public void setNombre(String nombre) {

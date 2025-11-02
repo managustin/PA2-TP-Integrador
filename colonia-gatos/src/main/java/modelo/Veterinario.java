@@ -4,24 +4,23 @@
  */
 package modelo;
 
+import jakarta.persistence.Entity;
 import java.util.List;
 
 /**
  *
  * @author ms_ma
  */
+
+@Entity
 public class Veterinario extends Usuario {
 
-    
-    
-    public Veterinario(String nom, String email, String password) {
-        super(nom, email, password);
+    public Veterinario() {
     }
 
-    public Veterinario(int id, String nom, String email, String password) {
-        super(id, nom, email, password);
-    }
-    
+    public Veterinario(String nom, String email, String password) {
+        super(nom, email, password);
+    }    
     
     public HistorialMedico accederHistorial(Gato g){
         return g.getHistorial();

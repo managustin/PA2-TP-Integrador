@@ -4,24 +4,25 @@
  */
 package modelo;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.persistence.Entity;
 
 /**
  *
  * @author Mango
  */
+@Entity
 public class FamiliaAdoptante extends Usuario {
 
     private String direccion;
 
-    public FamiliaAdoptante(String nom, String email, String password, String direccion) {
-        super(nom, email, password);
-        this.direccion = direccion;
+    public FamiliaAdoptante() {
     }
 
-    public FamiliaAdoptante(int id, String nom, String email, String password, String direccion) {
-        super(id, nom, email, password);
+    public FamiliaAdoptante(String direccion, String nom, String email, String password) {
+        super(nom, email, password);
         this.direccion = direccion;
     }
     
@@ -32,9 +33,16 @@ public class FamiliaAdoptante extends Usuario {
         // acá hago una lista dummy para probar antes de agregar db
         
         List<Gato> gatos = new ArrayList<>();
-        gatos.add(new Gato("Sillycat", "sillycat.gif"));
-        gatos.add(new Gato("Nigga", "gato1.jpg"));
+        gatos.add(new Gato());
         return gatos;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
     }
     
 }

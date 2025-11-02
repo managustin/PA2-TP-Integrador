@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,17 +13,18 @@ import java.util.List;
  *
  * @author Mango
  */
+@Entity
 public class Voluntario extends Usuario {
     private String zona;
+    
+    @OneToMany (mappedBy="volun")
     private List<Gato> gatosRegistrados = new ArrayList<>();
+
+    public Voluntario() {
+    }
 
     public Voluntario(String zona, String nom, String email, String password) {
         super(nom, email, password);
-        this.zona = zona;
-    }
-
-    public Voluntario(String zona, int id, String nom, String email, String password) {
-        super(id, nom, email, password);
         this.zona = zona;
     }
 
