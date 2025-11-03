@@ -39,6 +39,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 600));
 
         panelContenido.setLayout(new java.awt.BorderLayout());
         getContentPane().add(panelContenido, java.awt.BorderLayout.CENTER);

@@ -44,9 +44,7 @@ public class HistorialMedico implements Serializable {
 
     public void setRegistros(List<RegistroMedico> registros) {
         this.registros = registros;
-    }
-    
-    
+    }    
     
     public void agregarRegistro(RegistroMedico r){
         this.registros.add(r);

@@ -40,6 +40,9 @@ public class RegistroMedico implements Serializable {
     @JoinColumn(name="id_vet")
     private Veterinario vet;
 
+    public RegistroMedico() {
+    }
+    
     public RegistroMedico(int id_rm, TipoRegistroMedico tipo, Date fecha, String descripcion, String archivoEstudio, HistorialMedico historial) {
         this.id_rm = id_rm;
         this.tipo = tipo;

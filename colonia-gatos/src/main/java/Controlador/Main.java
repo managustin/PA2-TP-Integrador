@@ -11,8 +11,14 @@ import modelo.Usuario;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.SwingUtilities;
+import modelo.EstadoSalud;
 import modelo.FamiliaAdoptante;
+import modelo.Gato;
+import modelo.HistorialMedico;
+import modelo.Zona;
 import persistencia.ControladoraPersistencia;
+import persistencia.HistorialMedicoJpaController;
+import persistencia.ZonaJpaController;
 import vista.VentanaInicioSesion;
 /**
  *
@@ -34,7 +40,63 @@ public class Main {
         
         System.out.println(t1.getObservaciones());
         */
+        
         ControladoraPersistencia controlPersis = new ControladoraPersistencia();
+        ZonaJpaController zonaJpa = new ZonaJpaController();
+        HistorialMedicoJpaController historialJpa = new HistorialMedicoJpaController();
+        
+            // Cargar gatos de prueba si no hay ninguno en la base
+        if (controlPersis.traerGatos().isEmpty()) {
+            System.out.println("No hay gatos, creando gatos de prueba...");
+
+            Zona zonaCentro = new Zona();
+            zonaCentro.setNombre("Centro");
+            zonaJpa.create(zonaCentro);
+            
+            // Crear historial y persistirlo
+            HistorialMedico hist1 = new HistorialMedico();
+            historialJpa.create(hist1);
+                     
+            Gato g1 = new Gato();
+            g1.setNombre("Michi");
+            g1.setColor("Blanco");
+            g1.setCaracteristicas("Tranquilo y sociable");
+            g1.setFoto("gato1.jpg");
+            g1.setQr("QR001");
+            g1.setEsterilizado(true);
+            g1.setEstadoSalud(EstadoSalud.SANO);
+            g1.setZona(zonaCentro); 
+            g1.setHistorial(hist1);
+
+            
+            Zona zonaNorte = new Zona();
+            zonaNorte.setNombre("Norte");
+            zonaJpa.create(zonaNorte);
+            
+            // historial 2
+            HistorialMedico hist2 = new HistorialMedico();
+            historialJpa.create(hist2);
+            
+            Gato g2 = new Gato();
+            g2.setNombre("Negra");
+            g2.setColor("Negro");
+            g2.setCaracteristicas("Curiosa y activa");
+            g2.setFoto("gato2.jpg");
+            g2.setQr("QR002");
+            g2.setEsterilizado(false);
+            g2.setEstadoSalud(EstadoSalud.EN_TRATAMIENTO);
+            g2.setZona(zonaNorte);
+            g2.setHistorial(hist2);
+
+            // Persistir
+            controlPersis.crearGato(g1);
+            controlPersis.crearGato(g2);
+
+            System.out.println("Gatos insertados en la base de datos.");
+        } else {
+            System.out.println("Ya hay gatos en la base, no se insertan de nuevo.");
+        }
+        
         SwingUtilities.invokeLater(() -> {
             VentanaInicioSesion v = new VentanaInicioSesion();
             LoginControlador ctrl = new LoginControlador(v);

@@ -21,11 +21,16 @@ public class PanelGatoCard extends javax.swing.JPanel {
     public PanelGatoCard(Gato gato) {
         initComponents();
         lblNombre.setText(gato.getNombre());
-        setPreferredSize(new Dimension(200, 300)); // ANCHO x ALTO
-        URL url = getClass().getResource("/Recursos/Imagenes/gato1.jpg");
-        System.out.println("Ruta encontrada: " + url);
-        
-        lblFoto.setIcon(new ImageIcon(getClass().getResource("/Recursos/Imagenes/" + gato.getFoto())));
+        setPreferredSize(new Dimension(400, 500)); // Ancho x Alto
+
+        // Carga dinámica de la imagen desde resources
+        URL url = getClass().getResource("/Recursos/Imagenes/" + gato.getFoto());
+        if (url != null) {
+            lblFoto.setIcon(new ImageIcon(url));
+        } else {
+            // Imagen por defecto si no se encuentra
+            lblFoto.setIcon(new ImageIcon(getClass().getResource("/Recursos/Imagenes/default.jpg")));
+        }
     }
 
     /**
@@ -44,7 +49,6 @@ public class PanelGatoCard extends javax.swing.JPanel {
         setLayout(new java.awt.GridLayout(3, 1));
 
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Imagenes/sillycat.gif"))); // NOI18N
         lblFoto.setMaximumSize(new java.awt.Dimension(226, 198));
         add(lblFoto);
 

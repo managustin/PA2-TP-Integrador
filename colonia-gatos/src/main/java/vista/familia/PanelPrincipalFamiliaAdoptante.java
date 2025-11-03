@@ -38,6 +38,8 @@ public class PanelPrincipalFamiliaAdoptante extends javax.swing.JPanel {
         panelRellenoDerecha = new javax.swing.JPanel();
         panelGatos = new javax.swing.JPanel();
 
+        setMinimumSize(new java.awt.Dimension(500, 600));
+        setPreferredSize(new java.awt.Dimension(500, 600));
         setLayout(new java.awt.BorderLayout());
 
         panelNorth.setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 1, 1, 1));
@@ -74,6 +76,8 @@ public class PanelPrincipalFamiliaAdoptante extends javax.swing.JPanel {
         add(panelRellenoDerecha, java.awt.BorderLayout.EAST);
 
         panelGatos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
+        panelGatos.setMinimumSize(new java.awt.Dimension(500, 600));
+        panelGatos.setPreferredSize(new java.awt.Dimension(500, 600));
         add(panelGatos, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 

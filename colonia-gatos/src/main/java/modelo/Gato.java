@@ -41,7 +41,7 @@ public class Gato implements Serializable {
     @OneToMany (mappedBy="michi")
     private List<Tarea> tareas = new ArrayList<>();
     @OneToOne
-    private HistorialMedico historial = new HistorialMedico();
+    private HistorialMedico historial;
     
     @ManyToOne
     @JoinColumn(name="id_volun")
@@ -206,4 +206,11 @@ public class Gato implements Serializable {
     public void agregarTarea(Tarea t){
         this.tareas.add(t);
     }
+
+    @Override
+    public String toString() {
+        return "Gato{" + "id_gato=" + id_gato + ", nombre=" + nombre + ", color=" + color + ", caracteristicas=" + caracteristicas + ", foto=" + foto + ", zona=" + zona+'}';
+    }
+    
+    
 }

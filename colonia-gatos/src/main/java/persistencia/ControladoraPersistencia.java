@@ -4,6 +4,11 @@
  */
 package persistencia;
 
+import java.util.List;
+import modelo.Gato;
+import modelo.HistorialMedico;
+import modelo.Zona;
+
 /**
  *
  * @author ms_ma
@@ -15,5 +20,27 @@ public class ControladoraPersistencia {
 
     public ControladoraPersistencia() {
     }
+    
+    public void crearGato(Gato gato){
+        GatoJpa.create(gato);
+    }
+
+    public List<Gato> traerGatos(){
+        return GatoJpa.findGatoEntities();
+    }
+    
+    
+    //ZONAS
+    
+    ZonaJpaController ZonaJpa = new ZonaJpaController();
+    
+    public void crearZona(Zona zona){
+        ZonaJpa.create(zona);
+    }
+    public List<Zona> traerZonas(){
+        return ZonaJpa.findZonaEntities();
+    }
+    
+    //  HISTORIAL MEDICO  
     
 }
