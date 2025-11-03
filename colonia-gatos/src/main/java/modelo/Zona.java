@@ -4,24 +4,50 @@
  */
 package modelo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author ms_ma
  */
-public class Zona {
+@Entity
+public class Zona implements Serializable {
     
-    private int id;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id_zona;
     private String nombre;
-    
-    Zona(int id, String nombre){
-        this.id = id;
+    @OneToMany (mappedBy="zona")
+    private List<Gato> gatos = new ArrayList<>();
+
+    public Zona() {
+    }
+
+    public Zona(int id_zona, String nombre) {
+        this.id_zona = id_zona;
         this.nombre = nombre;
     }
-    Zona(String nombre){
-        this.nombre = nombre;
+
+    public int getId_zona() {
+        return id_zona;
     }
     
     public String getNombre(){
         return this.nombre;
+    }
+
+    public void setId_zona(int id_zona) {
+        this.id_zona = id_zona;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

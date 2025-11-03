@@ -5,6 +5,7 @@
 package modelo;
 
 import jakarta.persistence.Entity;
+import java.io.Serializable;
 
 /**
  *
@@ -17,13 +18,13 @@ import jakarta.persistence.Entity;
  * , esto lo comprobaría el controlador
  */
 @Entity
-public class Administrador extends Usuario{
+public class Administrador extends Usuario implements Serializable{
 
     public Administrador() {
     }
 
-    public Administrador(String nom, String email, String password) {
-        super(nom, email, password);
+    public Administrador(int id_usuario, String nombre, String email, String password) {
+        super(id_usuario, nombre, email, password);
     }
 }
 

@@ -4,3 +4,21 @@ rever emitirCertificado() en veterinario.
 
 reformular Zona y ver cómo implementar lo de gestionarZonas del administrador
 Cambiar Gato.zona por tipo Zona
+
+modificar la clase reportes en diagrama, debería tener cantidad de gatos por zona, gatos esterilizados, gatos adoptados.
+abstract class Reporte {
+  - id: int
+  - fechaGeneracion: Date
+  + generar(): void
+}
+class ReporteGatosPorZona {
+  - resultados: Map<Zona, Integer>
+}
+
+class ReporteGatosEsterilizados {
+  - gatosEsterilizados: List<Gato>
+}
+
+class ReporteGatosAdoptados {
+  - gatosAdoptados: List<Gato>
+}

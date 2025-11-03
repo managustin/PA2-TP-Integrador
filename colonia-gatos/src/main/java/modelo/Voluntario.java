@@ -6,6 +6,7 @@ package modelo;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,17 +15,23 @@ import java.util.List;
  * @author Mango
  */
 @Entity
-public class Voluntario extends Usuario {
+public class Voluntario extends Usuario implements Serializable {
     private String zona;
     
     @OneToMany (mappedBy="volun")
     private List<Gato> gatosRegistrados = new ArrayList<>();
+    
+    @OneToMany (mappedBy="volun")
+    private List<Tarea> tareas = new ArrayList<>();
 
+    @OneToMany (mappedBy="volun")
+    private List<Visita> visitas = new ArrayList<>();
+    
     public Voluntario() {
     }
 
-    public Voluntario(String zona, String nom, String email, String password) {
-        super(nom, email, password);
+    public Voluntario(String zona, int id_usuario, String nombre, String email, String password) {
+        super(id_usuario, nombre, email, password);
         this.zona = zona;
     }
 

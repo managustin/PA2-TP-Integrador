@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import java.io.Serializable;
 
 
 /**
@@ -19,32 +20,29 @@ import jakarta.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Usuario {
+public class Usuario implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id_usuario;
     private String nombre, email, password;
 
     public Usuario() {
     }
-    
-    public Usuario(String nom, String email, String password){
-        this.nombre = nom;
+
+    public Usuario(int id_usuario, String nombre, String email, String password) {
+        this.id_usuario = id_usuario;
+        this.nombre = nombre;
         this.email = email;
         this.password = password;
     }
-    
-    public int verId(){
-        return this.id;
+
+    public int getId_usuario() {
+        return id_usuario;
     }
     
     public String verNombre(){
         return this.nombre;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getNombre() {
@@ -59,10 +57,10 @@ public class Usuario {
         return password;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
-
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }

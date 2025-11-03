@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import javax.swing.SwingUtilities;
 import modelo.FamiliaAdoptante;
+import persistencia.ControladoraPersistencia;
 import vista.VentanaInicioSesion;
 /**
  *
@@ -33,13 +34,14 @@ public class Main {
         
         System.out.println(t1.getObservaciones());
         */
-        
+        ControladoraPersistencia controlPersis = new ControladoraPersistencia();
         SwingUtilities.invokeLater(() -> {
             VentanaInicioSesion v = new VentanaInicioSesion();
             LoginControlador ctrl = new LoginControlador(v);
             v.setLocationRelativeTo(null); // centra en pantalla
             v.setVisible(true);
         });
+        
         
     }
 }

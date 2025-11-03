@@ -5,6 +5,9 @@
 package modelo;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,14 +16,20 @@ import java.util.List;
  */
 
 @Entity
-public class Veterinario extends Usuario {
+public class Veterinario extends Usuario implements Serializable {
 
+    @OneToMany (mappedBy="vet")
+    private List<RegistroMedico> registros = new ArrayList<>();
+    
+    @OneToMany (mappedBy="vet")
+    private List<Gato> gatos = new ArrayList<>();    
+    
     public Veterinario() {
     }
 
-    public Veterinario(String nom, String email, String password) {
-        super(nom, email, password);
-    }    
+    public Veterinario(int id_usuario, String nombre, String email, String password) {
+        super(id_usuario, nombre, email, password);
+    }
     
     public HistorialMedico accederHistorial(Gato g){
         return g.getHistorial();

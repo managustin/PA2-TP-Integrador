@@ -43,9 +43,9 @@ public class LoginControlador{
         
         //  Simula la validación con usuario dummy
     private Usuario validarUsuarioDummy(String email, String password){
-        if(email.equals("famlia@mail.com") && password.equals("1234")){
+        /*if(email.equals("famlia@mail.com") && password.equals("1234")){
             return new FamiliaAdoptante("Familia López", email, password, "calle"); //String nom, String email, String password, String direccion
-        }
+        }*/
         return null;
     }
 

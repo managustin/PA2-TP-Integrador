@@ -10,7 +10,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ import java.util.List;
  * @author Mango
  */
 @Entity
-public class Gato {
+public class Gato implements Serializable {
     
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,18 +30,29 @@ public class Gato {
     private String color;
     private String caracteristicas;
     private String foto;
+    
+    @ManyToOne
+    @JoinColumn(name="id_zona")
     private Zona zona;
     private EstadoSalud estadoSalud;
     private String qr;
     private boolean esterilizado;
+    
+    @OneToMany (mappedBy="michi")
     private List<Tarea> tareas = new ArrayList<>();
     @OneToOne
     private HistorialMedico historial = new HistorialMedico();
     
-
     @ManyToOne
-    @JoinColumn(name="id")
+    @JoinColumn(name="id_volun")
     private Voluntario volun;
+    
+    @OneToMany (mappedBy="michi")
+    private List<Adopcion> adopciones = new ArrayList<>();
+    
+    @ManyToOne
+    @JoinColumn(name="id_vet")
+    private Veterinario vet;
 
     public Gato() {
     }
@@ -56,10 +69,26 @@ public class Gato {
         this.esterilizado = esterilizado;
         this.volun = volun;
     }
+    
+    
+    
+    public int getId_gato() {
+        return id_gato;
+    }
 
-    
-    
-    // ----------------------------- Getters ----------------------------- 
+    public Voluntario getVolun() {
+        return volun;
+    }
+
+    public List<Adopcion> getAdopciones() {
+        return adopciones;
+    }
+
+    // ----------------------------- Getters -----------------------------
+    public Veterinario getVet() {
+        return vet;
+    }
+
     public int getIdGato() {
         return id_gato;
     }
@@ -104,6 +133,28 @@ public class Gato {
         return historial;
     }
     // ----------------------------- Setters ----------------------------- 
+
+    public void setId_gato(int id_gato) {
+        this.id_gato = id_gato;
+    }
+
+    public void setHistorial(HistorialMedico historial) {
+        this.historial = historial;
+    }
+
+    public void setVolun(Voluntario volun) {
+        this.volun = volun;
+    }
+
+    public void setAdopciones(List<Adopcion> adopciones) {
+        this.adopciones = adopciones;
+    }
+
+    public void setVet(Veterinario vet) {
+        this.vet = vet;
+    }
+    
+    
 
     public void setId(int id_gato) {
         this.id_gato = id_gato;

@@ -4,56 +4,69 @@
  */
 package modelo;
 
-import java.sql.Time;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author ms_ma
  */
-public class Tarea {
-
-    private int id;
+@Entity
+public class Tarea implements Serializable {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id_tarea;
     private TipoTarea tipoTarea;
-    private LocalDate fecha;
-    private LocalTime hora;
+    @Temporal(TemporalType.DATE)
+    private Date fecha;
+    @Temporal(TemporalType.TIME)
+    private Date hora;
     private String ubicacion;
     private String observaciones;
+    @ManyToOne
+    @JoinColumn(name="id_volun")
+    private Voluntario volun;
+    
+    @ManyToOne
+    @JoinColumn(name="id_michi")
+    private Gato michi;
 
-    public Tarea(TipoTarea tipoTarea, LocalDate fecha, LocalTime hora, String ubicacion, String observaciones) {
-        this.tipoTarea = tipoTarea;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.ubicacion = ubicacion;
-        this.observaciones = observaciones;
+    public Tarea() {
     }
 
-    public Tarea(int id, TipoTarea tipoTarea, LocalDate fecha, LocalTime hora, String ubicacion, String observaciones) {
-        this.id = id;
+    public Tarea(int id_tarea, TipoTarea tipoTarea, Date fecha, Date hora, String ubicacion, String observaciones, Voluntario volun) {
+        this.id_tarea = id_tarea;
         this.tipoTarea = tipoTarea;
         this.fecha = fecha;
         this.hora = hora;
         this.ubicacion = ubicacion;
         this.observaciones = observaciones;
+        this.volun = volun;
     }
     
     // ----------------------------- Getters ----------------------------- 
 
-    public int getId() {
-        return id;
+    public int getId_tarea() {
+        return id_tarea;
     }
 
     public TipoTarea getTipoTarea() {
         return tipoTarea;
     }
 
-    public LocalDate getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public LocalTime getHora() {
+    public Date getHora() {
         return hora;
     }
 
@@ -64,9 +77,47 @@ public class Tarea {
     public String getObservaciones() {
         return observaciones;
     }
-    
-    // ----------------------------- Setters ----------------------------- 
 
+    public Voluntario getVolun() {
+        return volun;
+    }
+
+    public Gato getMichi() {
+        return michi;
+    }
+
+    public void setId_tarea(int id_tarea) {
+        this.id_tarea = id_tarea;
+    }
+
+    public void setTipoTarea(TipoTarea tipoTarea) {
+        this.tipoTarea = tipoTarea;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setHora(Date hora) {
+        this.hora = hora;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public void setVolun(Voluntario volun) {
+        this.volun = volun;
+    }
+
+    public void setMichi(Gato michi) {
+        this.michi = michi;
+    }
+
+   
+    
+    
+    
     public void setObservaciones(String observaciones) {
         this.observaciones += "\n" + observaciones;
     }
