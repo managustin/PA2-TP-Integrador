@@ -26,8 +26,8 @@ public class FamiliaAdoptante extends Usuario implements Serializable {
     public FamiliaAdoptante() {
     }
 
-    public FamiliaAdoptante(String direccion, int id_usuario, String nombre, String email, String password) {
-        super(id_usuario, nombre, email, password);
+    public FamiliaAdoptante(String direccion, int id_usuario, String nombre, String email, String password, String telefono) {
+        super(id_usuario, nombre, email, password, telefono);
         this.direccion = direccion;
     }
     

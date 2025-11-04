@@ -25,7 +25,7 @@ public class LoginControlador{
     }
     
     public void procesarLogin() {
-        System.out.println("se ejecuta");
+        System.out.println("se ejecuta el login");
         // obtenemos datos de la vista
         String email = vista.getEmail();
         String password = vista.getPassword();

@@ -159,6 +159,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Crear Cuenta"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarseActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -23,8 +23,8 @@ public class Administrador extends Usuario implements Serializable{
     public Administrador() {
     }
 
-    public Administrador(int id_usuario, String nombre, String email, String password) {
-        super(id_usuario, nombre, email, password);
+    public Administrador(int id_usuario, String nombre, String email, String password, String telefono) {
+        super(id_usuario, nombre, email, password, telefono);
     }
 }
 

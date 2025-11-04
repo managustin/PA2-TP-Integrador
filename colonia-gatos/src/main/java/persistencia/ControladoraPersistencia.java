@@ -5,6 +5,7 @@
 package persistencia;
 
 import java.util.List;
+import modelo.FamiliaAdoptante;
 import modelo.Gato;
 import modelo.HistorialMedico;
 import modelo.Zona;
@@ -17,6 +18,7 @@ public class ControladoraPersistencia {
     
     AdministradorJpaController AdminJpa = new AdministradorJpaController();
     GatoJpaController GatoJpa = new GatoJpaController();
+    private FamiliaAdoptanteJpaController familiaJpa = new FamiliaAdoptanteJpaController();
 
     public ControladoraPersistencia() {
     }
@@ -41,6 +43,13 @@ public class ControladoraPersistencia {
         return ZonaJpa.findZonaEntities();
     }
     
-    //  HISTORIAL MEDICO  
+    //  FAMILIA ADOPTANTE
+    public void crearFamiliaAdoptante(FamiliaAdoptante familia) {
+        familiaJpa.create(familia);
+    }
+
+    public List<FamiliaAdoptante> traerFamilias() {
+        return familiaJpa.findFamiliaAdoptanteEntities();
+    }
     
 }

@@ -5,6 +5,7 @@
 package vista;
 
 import Controlador.LoginControlador;
+import Controlador.RegistroControlador;
 
 /**
  *
@@ -106,6 +107,11 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
         panelBotones.add(btnIngresar);
 
         btnRegistrarse.setText("Crear Cuenta");
+        btnRegistrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarseActionPerformed(evt);
+            }
+        });
         panelBotones.add(btnRegistrarse);
 
         panelCentro.add(panelBotones);
@@ -148,6 +154,13 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         loginControlador.procesarLogin(); // llama al controlador
     }//GEN-LAST:event_btnIngresarActionPerformed
+
+    private void btnRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarseActionPerformed
+        this.dispose();    // Cierra la ventana login
+        VentanaRegistro ventanaRegistro = new VentanaRegistro();
+        RegistroControlador registroControlador = new RegistroControlador(ventanaRegistro);
+        ventanaRegistro.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,12 +212,11 @@ public class VentanaInicioSesion extends javax.swing.JFrame {
     public void setLoginControlador(LoginControlador ctrl) {
         this.loginControlador = ctrl;
     }
-
+   
     public String getEmail(){
         return txtEmail.getText();
     }
     public String getPassword(){
         return new String(txtPassword.getPassword());
     }
-    
 }

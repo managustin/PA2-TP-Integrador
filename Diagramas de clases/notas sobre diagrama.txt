@@ -22,3 +22,6 @@ class ReporteGatosEsterilizados {
 class ReporteGatosAdoptados {
   - gatosAdoptados: List<Gato>
 }
+
+
+agregar telefono a los usuarios

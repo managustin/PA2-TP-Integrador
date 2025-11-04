@@ -30,8 +30,8 @@ public class Voluntario extends Usuario implements Serializable {
     public Voluntario() {
     }
 
-    public Voluntario(String zona, int id_usuario, String nombre, String email, String password) {
-        super(id_usuario, nombre, email, password);
+    public Voluntario(String zona, int id_usuario, String nombre, String email, String password, String telefono) {
+        super(id_usuario, nombre, email, password, telefono);
         this.zona = zona;
     }
 

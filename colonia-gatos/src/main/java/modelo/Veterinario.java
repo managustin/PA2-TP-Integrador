@@ -27,8 +27,8 @@ public class Veterinario extends Usuario implements Serializable {
     public Veterinario() {
     }
 
-    public Veterinario(int id_usuario, String nombre, String email, String password) {
-        super(id_usuario, nombre, email, password);
+    public Veterinario(int id_usuario, String nombre, String email, String password, String telefono) {
+        super(id_usuario, nombre, email, password, telefono);
     }
     
     public HistorialMedico accederHistorial(Gato g){
