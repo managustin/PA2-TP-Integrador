@@ -12,6 +12,7 @@ import modelo.Gato;
 import modelo.HistorialMedico;
 import modelo.Tarea;
 import modelo.TipoTarea;
+import modelo.Usuario;
 import modelo.Voluntario;
 import modelo.Zona;
 
@@ -25,10 +26,34 @@ public class ControladoraPersistencia {
     private GatoJpaController GatoJpa = new GatoJpaController();
     private TareaJpaController tareaJpa = new TareaJpaController();
     private FamiliaAdoptanteJpaController familiaJpa = new FamiliaAdoptanteJpaController();
+    private UsuarioJpaController usuarioJpa = new UsuarioJpaController();
 
     public ControladoraPersistencia() {
     }
     
+    // USUARIOS
+    
+    public Usuario validarLogin(String email, String password) {
+        List<Usuario> usuarios = usuarioJpa.findUsuarioEntities();
+
+        for (Usuario u : usuarios) {
+            if (u.getEmail().equals(email) && u.getPassword().equals(password)) {
+                return u;
+            }
+        }
+        return null;
+    }
+
+    public void crearUsuario(Usuario usuario) {
+        usuarioJpa.create(usuario);
+    }
+
+    public List<Usuario> traerUsuarios(){
+        return usuarioJpa.findUsuarioEntities();
+    }
+    
+    
+    // GATOS
     public void crearGato(Gato gato){
         GatoJpa.create(gato);
     }

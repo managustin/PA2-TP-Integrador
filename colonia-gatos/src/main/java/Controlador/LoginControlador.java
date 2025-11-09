@@ -14,6 +14,7 @@ import persistencia.ControladoraPersistencia;
 import persistencia.UsuarioJpaController;
 import vista.VentanaInicioSesion;
 import vista.VentanaPrincipal;
+import vista.VentanaRegistro;
 import vista.familia.PanelPrincipalFamiliaAdoptante;
 import vista.voluntario.PanelPrincipalVoluntario;
 
@@ -24,10 +25,36 @@ import vista.voluntario.PanelPrincipalVoluntario;
 public class LoginControlador{
     
     private VentanaInicioSesion vista;
+    private ControladoraPersistencia controlPersistencia;
 
     public LoginControlador(VentanaInicioSesion vista) {
         this.vista = vista;
         this.vista.setLoginControlador(this);
+        this.vista.setLocationRelativeTo(null);
+        this.controlPersistencia = new ControladoraPersistencia();
+        configurarListeners();
+    }
+    
+    private void configurarListeners(){
+         vista.getBtnIngresar().addActionListener(e -> procesarLogin());
+         vista.getBtnRegistrarse().addActionListener(e -> abrirVentanaRegistrarse());
+         vista.getBtnRestablecerPass().addActionListener(e -> procesarLogin());
+    }
+    
+    private void abrirVentanaRegistrarse() {
+
+        // Crear vista de registro
+        VentanaRegistro vr = new VentanaRegistro();
+
+        // Crear controlador de registro
+        new RegistroControlador(vr);  
+
+        // Mostrar la ventana de registro
+        vr.setLocationRelativeTo(vista); // centrar respecto al login
+        vr.setVisible(true);
+
+        // Cerrar la ventana de login
+        vista.dispose();
     }
     
     public void procesarLogin() {
@@ -36,36 +63,15 @@ public class LoginControlador{
             String email = vista.getEmail();
             String password = vista.getPassword();
             
-            Usuario usuario = validarUsuario(email, password);
+            Usuario usuario = controlPersistencia.validarLogin(email, password);
 
             if(usuario!=null){
                 vista.dispose();    // Cierra la ventana login
                 abrirVentanaPrincipal(usuario);
             }else{
-                javax.swing.JOptionPane.showMessageDialog(vista, "Credenciales incorrectas.");
+                javax.swing.JOptionPane.showMessageDialog(vista, "Credenciales incorrectas o el usuario no existe.");
             }
     }
-        
-        //  Simula la validación con usuario dummy
-    private Usuario validarUsuarioDummy(String email, String password){
-        if(email.equals("a") && password.equals("1")){
-            return new FamiliaAdoptante(); //String nom, String email, String password, String direccion
-        }
-        return null;
-    }
-    
-    private Usuario validarUsuario(String email, String password){
-        UsuarioJpaController usuarioJpa = new UsuarioJpaController();
-        List<Usuario> usuarios = usuarioJpa.findUsuarioEntities();
-
-        for(Usuario u : usuarios){
-            if(u.getEmail().equals(email) && u.getPassword().equals(password)){
-                return u; // puede ser Voluntario, FamiliaAdoptante, etc.
-            }
-        }
-        return null;
-    }
-
 
     private void abrirVentanaPrincipal(Usuario usuario){
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();

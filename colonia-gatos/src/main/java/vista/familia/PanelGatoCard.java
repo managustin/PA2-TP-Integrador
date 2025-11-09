@@ -4,8 +4,7 @@
  */
 package vista.familia;
 
-import java.awt.Dimension;
-import java.net.URL;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 import modelo.Gato;
 
@@ -20,17 +19,21 @@ public class PanelGatoCard extends javax.swing.JPanel {
      */
     public PanelGatoCard(Gato gato) {
         initComponents();
-        lblNombre.setText(gato.getNombre());
-        setPreferredSize(new Dimension(400, 500)); // Ancho x Alto
 
-        // Carga dinámica de la imagen desde resources
-        URL url = getClass().getResource("/Recursos/Imagenes/" + gato.getFoto());
-        if (url != null) {
-            lblFoto.setIcon(new ImageIcon(url));
+        lblNombre.setText(gato.getNombre());
+
+        byte[] bytesFoto = gato.getFoto();
+        ImageIcon icon;
+
+        if (bytesFoto != null && bytesFoto.length > 0) {
+            Image img = new ImageIcon(bytesFoto).getImage()
+                       .getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+            icon = new ImageIcon(img);
         } else {
-            // Imagen por defecto si no se encuentra
-            lblFoto.setIcon(new ImageIcon(getClass().getResource("/Recursos/Imagenes/default.jpg")));
+            icon = new ImageIcon(getClass().getResource("/Recursos/Imagenes/default.jpg"));
         }
+
+        lblFoto.setIcon(icon);
     }
 
     /**
@@ -43,21 +46,41 @@ public class PanelGatoCard extends javax.swing.JPanel {
     private void initComponents() {
 
         lblFoto = new javax.swing.JLabel();
+        panel = new javax.swing.JPanel();
         lblNombre = new javax.swing.JLabel();
         btnVerGato = new javax.swing.JButton();
 
-        setLayout(new java.awt.GridLayout(3, 1));
+        setLayout(new java.awt.BorderLayout());
 
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblFoto.setMaximumSize(new java.awt.Dimension(226, 198));
-        add(lblFoto);
+        lblFoto.setToolTipText("");
+        lblFoto.setFocusCycleRoot(true);
+        lblFoto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblFoto.setMaximumSize(new java.awt.Dimension(400, 250));
+        lblFoto.setMinimumSize(new java.awt.Dimension(200, 200));
+        lblFoto.setPreferredSize(new java.awt.Dimension(200, 200));
+        add(lblFoto, java.awt.BorderLayout.CENTER);
+
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 0, 15));
+        panel.setAlignmentX(0.5F);
 
         lblNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNombre.setText("Nombre");
-        add(lblNombre);
+        lblNombre.setAlignmentX(0.5F);
+        panel.add(lblNombre);
 
+        btnVerGato.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnVerGato.setText("Ver gato");
-        add(btnVerGato);
+        btnVerGato.setAlignmentX(0.5F);
+        btnVerGato.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        btnVerGato.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnVerGato.setMaximumSize(new java.awt.Dimension(100, 70));
+        btnVerGato.setMinimumSize(new java.awt.Dimension(50, 10));
+        btnVerGato.setPreferredSize(new java.awt.Dimension(100, 70));
+        btnVerGato.setVerifyInputWhenFocusTarget(false);
+        panel.add(btnVerGato);
+
+        add(panel, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -65,5 +88,6 @@ public class PanelGatoCard extends javax.swing.JPanel {
     private javax.swing.JButton btnVerGato;
     private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
 }

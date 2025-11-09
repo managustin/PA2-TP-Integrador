@@ -21,7 +21,7 @@ public class PanelPrincipalFamiliaAdoptante extends javax.swing.JPanel {
      */
     public PanelPrincipalFamiliaAdoptante() {
         initComponents();
-
+        jScrollPane1.getVerticalScrollBar().setUnitIncrement(30);
     }
 
     /**
@@ -34,8 +34,8 @@ public class PanelPrincipalFamiliaAdoptante extends javax.swing.JPanel {
     private void initComponents() {
 
         panelNorth = new javax.swing.JPanel();
-        panelRellenoIzq = new javax.swing.JPanel();
-        panelRellenoDerecha = new javax.swing.JPanel();
+        lblBienvenido = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         panelGatos = new javax.swing.JPanel();
 
         setMinimumSize(new java.awt.Dimension(500, 600));
@@ -43,54 +43,45 @@ public class PanelPrincipalFamiliaAdoptante extends javax.swing.JPanel {
         setLayout(new java.awt.BorderLayout());
 
         panelNorth.setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 1, 1, 1));
+
+        lblBienvenido.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lblBienvenido.setText("Bienvenido");
+        panelNorth.add(lblBienvenido);
+
         add(panelNorth, java.awt.BorderLayout.NORTH);
 
-        panelRellenoIzq.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
-
-        javax.swing.GroupLayout panelRellenoIzqLayout = new javax.swing.GroupLayout(panelRellenoIzq);
-        panelRellenoIzq.setLayout(panelRellenoIzqLayout);
-        panelRellenoIzqLayout.setHorizontalGroup(
-            panelRellenoIzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelRellenoIzqLayout.setVerticalGroup(
-            panelRellenoIzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        add(panelRellenoIzq, java.awt.BorderLayout.LINE_START);
-
-        panelRellenoDerecha.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 50, 1, 1));
-
-        javax.swing.GroupLayout panelRellenoDerechaLayout = new javax.swing.GroupLayout(panelRellenoDerecha);
-        panelRellenoDerecha.setLayout(panelRellenoDerechaLayout);
-        panelRellenoDerechaLayout.setHorizontalGroup(
-            panelRellenoDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelRellenoDerechaLayout.setVerticalGroup(
-            panelRellenoDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        add(panelRellenoDerecha, java.awt.BorderLayout.EAST);
+        jScrollPane1.setViewportView(panelGatos);
 
         panelGatos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         panelGatos.setMinimumSize(new java.awt.Dimension(500, 600));
-        panelGatos.setPreferredSize(new java.awt.Dimension(500, 600));
-        add(panelGatos, java.awt.BorderLayout.CENTER);
+        panelGatos.setPreferredSize(null);
+        panelGatos.setLayout(new java.awt.GridLayout(0, 3, 20, 20));
+        jScrollPane1.setViewportView(panelGatos);
+
+        add(jScrollPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblBienvenido;
     private javax.swing.JPanel panelGatos;
     private javax.swing.JPanel panelNorth;
-    private javax.swing.JPanel panelRellenoDerecha;
-    private javax.swing.JPanel panelRellenoIzq;
     // End of variables declaration//GEN-END:variables
     
     public JPanel getPanelGatos(){
         return panelGatos;
     }
 
+    public JLabel getLblBienvenido() {
+        return lblBienvenido;
+    }
+
+    
+    
+    public void setLblBienvenido(JLabel lblBienvenido) {
+        this.lblBienvenido = lblBienvenido;
+    }
+
+    
 }

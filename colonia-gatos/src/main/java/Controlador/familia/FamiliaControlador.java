@@ -25,12 +25,16 @@ public class FamiliaControlador {
         this.vista = vista;
         this.familia = familia;
         this.controladora = new ControladoraPersistencia();
+        saludoBienvenida();
         mostrarGatos();
         // después habrá listeners.
         System.out.println("la familia controlador se usa");
         
     }
     
+    private void saludoBienvenida(){
+        this.vista.getLblBienvenido().setText("Bienvenida, familia " + familia.verNombre() + ". Estos gatos buscan un hogar.");
+    }
     
     private void mostrarGatos(){
         List<Gato> gatos = controladora.traerGatos();
@@ -44,4 +48,6 @@ public class FamiliaControlador {
         vista.getPanelGatos().revalidate();
         vista.getPanelGatos().repaint();
     }
+    
+    
 }

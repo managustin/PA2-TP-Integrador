@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import modelo.FamiliaAdoptante;
 import modelo.Usuario;
 import persistencia.ControladoraPersistencia;
+import vista.VentanaInicioSesion;
 import vista.VentanaRegistro;
 
 /**
@@ -20,9 +21,32 @@ public class RegistroControlador {
 
     public RegistroControlador(VentanaRegistro vista) {
         this.vista = vista;
-        this.vista.setRegistroControlador(this);
         this.controlPersis = new ControladoraPersistencia();
+        
+        configurarListeners();
     }
+    
+    private void configurarListeners(){
+        vista.getBtnRegistrarse().addActionListener(e -> procesarRegistrarse());
+        vista.getBtnVolver().addActionListener(e -> volver());
+    }
+    
+    private void volver() {
+
+        // Cerrar la ventana actual
+        vista.dispose();
+
+        // Crear ventana de inicio de sesión
+        VentanaInicioSesion vInicio = new VentanaInicioSesion();
+
+        // Crear su controlador
+        new LoginControlador(vInicio);
+
+        // Mostrar
+        vInicio.setLocationRelativeTo(null);
+        vInicio.setVisible(true);
+    }
+    
     
     public void procesarRegistrarse(){
         try {
@@ -61,7 +85,7 @@ public class RegistroControlador {
             System.out.println("GUARDADO OK");
 
             JOptionPane.showMessageDialog(vista, "Registro exitoso. Ya puede iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            vista.dispose();
+            volver();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(vista, "Error al registrar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
