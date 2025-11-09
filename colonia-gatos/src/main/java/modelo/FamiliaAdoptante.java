@@ -5,6 +5,7 @@
 package modelo;
 
 
+import jakarta.persistence.DiscriminatorValue;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.Entity;
@@ -16,6 +17,7 @@ import java.io.Serializable;
  * @author Mango
  */
 @Entity
+@DiscriminatorValue("FAMILIA")
 public class FamiliaAdoptante extends Usuario implements Serializable {
 
     private String direccion;

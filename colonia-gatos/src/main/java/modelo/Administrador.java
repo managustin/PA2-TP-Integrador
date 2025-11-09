@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import java.io.Serializable;
 
@@ -18,6 +19,7 @@ import java.io.Serializable;
  * , esto lo comprobaría el controlador
  */
 @Entity
+@DiscriminatorValue("ADMIN")
 public class Administrador extends Usuario implements Serializable{
 
     public Administrador() {

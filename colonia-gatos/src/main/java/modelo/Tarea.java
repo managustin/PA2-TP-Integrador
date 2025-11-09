@@ -4,7 +4,10 @@
  */
 package modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,6 +27,9 @@ public class Tarea implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id_tarea;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TipoTarea tipoTarea;
     @Temporal(TemporalType.DATE)
     private Date fecha;
@@ -32,7 +38,7 @@ public class Tarea implements Serializable {
     private String ubicacion;
     private String observaciones;
     @ManyToOne
-    @JoinColumn(name="id_volun")
+    @JoinColumn(name = "voluntario_id")
     private Voluntario volun;
     
     @ManyToOne
@@ -114,12 +120,18 @@ public class Tarea implements Serializable {
         this.michi = michi;
     }
 
-   
-    
-    
-    
     public void setObservaciones(String observaciones) {
         this.observaciones += "\n" + observaciones;
     }
     
+@Override
+public String toString() {
+    String fechaStr = fecha != null ? new java.text.SimpleDateFormat("dd/MM/yyyy").format(fecha) : "N/A";
+    String horaStr = hora != null ? new java.text.SimpleDateFormat("HH:mm").format(hora) : "N/A";
+
+    return String.format("%s - %s a las %s - %s",
+            tipoTarea, fechaStr, horaStr,
+            ubicacion != null ? ubicacion : "sin ubicación");
+}
+
 }

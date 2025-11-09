@@ -12,6 +12,10 @@ public enum EstadoSalud {
     
     ENFERMO,
     SANO,
-    EN_TRATAMIENTO
+    EN_TRATAMIENTO;
     
+    @Override
+    public String toString() {
+        return name();
+    }
 }

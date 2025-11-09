@@ -37,7 +37,7 @@ public class Visita implements Serializable {
     private Adopcion adop;
     
     @ManyToOne
-    @JoinColumn(name="id_volun")
+    @JoinColumn(name = "voluntario_id")
     private Voluntario volun;
 
     public Visita() {

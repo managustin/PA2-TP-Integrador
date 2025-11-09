@@ -4,11 +4,13 @@
  */
 package modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -29,7 +31,11 @@ public class Gato implements Serializable {
     private String nombre;
     private String color;
     private String caracteristicas;
-    private String foto;
+    
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] foto;
+
     
     @ManyToOne
     @JoinColumn(name="id_zona")
@@ -44,7 +50,7 @@ public class Gato implements Serializable {
     private HistorialMedico historial;
     
     @ManyToOne
-    @JoinColumn(name="id_volun")
+    @JoinColumn(name = "voluntario_id")
     private Voluntario volun;
     
     @OneToMany (mappedBy="michi")
@@ -57,7 +63,7 @@ public class Gato implements Serializable {
     public Gato() {
     }
 
-    public Gato(int id_gato, String nombre, String color, String caracteristicas, String foto, Zona zona, EstadoSalud estadoSalud, String qr, boolean esterilizado, Voluntario volun) {
+    public Gato(int id_gato, String nombre, String color, String caracteristicas, byte[] foto, Zona zona, EstadoSalud estadoSalud, String qr, boolean esterilizado, HistorialMedico historial, Voluntario volun, Veterinario vet) {
         this.id_gato = id_gato;
         this.nombre = nombre;
         this.color = color;
@@ -67,11 +73,11 @@ public class Gato implements Serializable {
         this.estadoSalud = estadoSalud;
         this.qr = qr;
         this.esterilizado = esterilizado;
+        this.historial = historial;
         this.volun = volun;
+        this.vet = vet;
     }
-    
-    
-    
+
     public int getId_gato() {
         return id_gato;
     }
@@ -105,7 +111,7 @@ public class Gato implements Serializable {
         return caracteristicas;
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
@@ -113,8 +119,8 @@ public class Gato implements Serializable {
         return zona;
     }
 
-    public EstadoSalud getEstadoSalud() {
-        return estadoSalud;
+    public String getEstadoSalud() {
+        return estadoSalud.toString();
     }
 
     public String getQr() {
@@ -172,7 +178,7 @@ public class Gato implements Serializable {
         this.caracteristicas = caracteristicas;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 
@@ -207,10 +213,15 @@ public class Gato implements Serializable {
         this.tareas.add(t);
     }
 
-    @Override
+        @Override
     public String toString() {
-        return "Gato{" + "id_gato=" + id_gato + ", nombre=" + nombre + ", color=" + color + ", caracteristicas=" + caracteristicas + ", foto=" + foto + ", zona=" + zona+'}';
+        return String.format("%d | %s | %s | %s", 
+                id_gato, 
+                nombre, 
+                color, 
+                zona.getNombre());
     }
+
     
     
 }

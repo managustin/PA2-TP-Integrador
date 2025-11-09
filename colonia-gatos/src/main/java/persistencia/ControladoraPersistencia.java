@@ -4,10 +4,15 @@
  */
 package persistencia;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 import modelo.FamiliaAdoptante;
 import modelo.Gato;
 import modelo.HistorialMedico;
+import modelo.Tarea;
+import modelo.TipoTarea;
+import modelo.Voluntario;
 import modelo.Zona;
 
 /**
@@ -16,8 +21,9 @@ import modelo.Zona;
  */
 public class ControladoraPersistencia {
     
-    AdministradorJpaController AdminJpa = new AdministradorJpaController();
-    GatoJpaController GatoJpa = new GatoJpaController();
+    private AdministradorJpaController AdminJpa = new AdministradorJpaController();
+    private GatoJpaController GatoJpa = new GatoJpaController();
+    private TareaJpaController tareaJpa = new TareaJpaController();
     private FamiliaAdoptanteJpaController familiaJpa = new FamiliaAdoptanteJpaController();
 
     public ControladoraPersistencia() {
@@ -29,6 +35,42 @@ public class ControladoraPersistencia {
 
     public List<Gato> traerGatos(){
         return GatoJpa.findGatoEntities();
+    }
+    
+
+    // VOLUNTARIOS
+    
+    public Voluntario buscarVoluntarioPorNombre(String nombre) {
+        VoluntarioJpaController volJpa = new VoluntarioJpaController();
+        EntityManager em = volJpa.getEntityManager();
+        try {
+            TypedQuery<Voluntario> query = em.createQuery(
+                "SELECT v FROM Voluntario v WHERE v.nombre = :nombre",
+                Voluntario.class
+            );
+            query.setParameter("nombre", nombre);
+            List<Voluntario> resultado = query.getResultList();
+
+            return resultado.isEmpty() ? null : resultado.get(0);
+        } finally {
+            em.close();
+        }
+    }
+
+
+
+    
+    // TAREAS POR GATO
+    
+    public List<Tarea> traerTareasPorGato(int idGato) {
+    return tareaJpa.findTareaEntities()
+                   .stream()
+                   .filter(t -> t.getMichi().getId_gato() == idGato)
+                   .toList();
+    }
+    
+    public void crearTarea(Tarea tarea){
+    tareaJpa.create(tarea);
     }
     
     

@@ -12,5 +12,10 @@ public enum TipoTarea {
     ALIMENTACION,
     CAPTURA_PARA_CASTRACION,
     CONTROL_VETERINARIO,
-    TRANSPORTE_A_HOGAR_TRANSITORIO
+    TRANSPORTE_A_HOGAR_TRANSITORIO;
+    
+    @Override
+    public String toString() {
+        return name().replace("_", " ").toLowerCase(); // o formateo que quieras
+    }
 }

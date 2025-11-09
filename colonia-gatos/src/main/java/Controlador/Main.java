@@ -4,6 +4,11 @@
 
 package Controlador;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import modelo.Tarea;
 import modelo.TipoTarea;
 import modelo.Usuario;
@@ -61,7 +66,22 @@ public class Main {
             g1.setNombre("Michi");
             g1.setColor("Blanco");
             g1.setCaracteristicas("Tranquilo y sociable");
-            g1.setFoto("gato1.jpg");
+            
+            
+            byte[] bytes1  = null;
+            try {
+                Path path = Paths.get("C:\\Datos\\Ingeniería\\2025\\Segundo Cuatrimestre\\Programación Avanzada II\\TP Final 2025\\PA2-TP-Integrador\\imagenes\\gato1.jpg");
+                if (!Files.exists(path)) {
+                    System.out.println("NO ENCUENTRA LA IMAGEN");
+                }
+                bytes1  = Files.readAllBytes(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Podés decidir qué hacer: dejar null, tirar una runtime, etc.
+            }
+            System.out.println("\n\n\n\nBytes leídos: " + bytes1.length + "\n\n\n\n");
+            g1.setFoto(bytes1);
+
             g1.setQr("QR001");
             g1.setEsterilizado(true);
             g1.setEstadoSalud(EstadoSalud.SANO);
@@ -81,7 +101,17 @@ public class Main {
             g2.setNombre("Negra");
             g2.setColor("Negro");
             g2.setCaracteristicas("Curiosa y activa");
-            g2.setFoto("gato2.jpg");
+            
+            byte[] bytes2  = null;
+            try {
+                Path path = Paths.get("C:\\Datos\\Ingeniería\\2025\\Segundo Cuatrimestre\\Programación Avanzada II\\TP Final 2025\\PA2-TP-Integrador\\imagenes\\gato2.jpg");
+                bytes2  = Files.readAllBytes(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+                // Podés decidir qué hacer: dejar null, tirar una runtime, etc.
+            }
+            g2.setFoto(bytes2);
+            
             g2.setQr("QR002");
             g2.setEsterilizado(false);
             g2.setEstadoSalud(EstadoSalud.EN_TRATAMIENTO);
@@ -94,8 +124,9 @@ public class Main {
 
             System.out.println("Gatos insertados en la base de datos.");
         } else {
-            System.out.println("Ya hay gatos en la base, no se insertan de nuevo.");
+            System.out.println("\n\n\n\n\n\n\nYa hay gatos en la base, no se insertan de nuevo.\n\n\n\n\n");
         }
+        
         
         SwingUtilities.invokeLater(() -> {
             VentanaInicioSesion v = new VentanaInicioSesion();

@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.util.List;
  */
 
 @Entity
+@DiscriminatorValue("VETERINARIO")
 public class Veterinario extends Usuario implements Serializable {
 
     @OneToMany (mappedBy="vet")
