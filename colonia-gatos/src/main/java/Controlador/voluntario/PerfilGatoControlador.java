@@ -4,6 +4,10 @@
  */
 package Controlador.voluntario;
 
+import Controlador.QrGenerator;
+import com.google.zxing.WriterException;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.util.List;
 import javax.swing.ImageIcon;
 import modelo.Gato;
@@ -38,8 +42,27 @@ public class PerfilGatoControlador {
 
         // FOTO (si existe)
         if (gato.getFoto() != null) {
-            System.out.println("Bytes foto: " + (gato.getFoto() == null ? "null" : gato.getFoto().length));
-            vista.setFoto(new ImageIcon(gato.getFoto()));
+
+            int maxAncho = vista.getLblFoto().getWidth();
+            int maxAlto = vista.getLblFoto().getHeight();
+
+            ImageIcon icon = escalarManteniendoAspecto(gato.getFoto(), maxAncho, maxAlto);
+
+            String contenidoQr = "GATO:" + gato.getId_gato() + ";NOMBRE:" + gato.getNombre();
+            
+            try {
+                BufferedImage img = QrGenerator.generarQR(contenidoQr, 200, 400);
+                vista.getLblQR().setIcon(new ImageIcon(img));
+                vista.getLblQR().setText(""); // si antes tenía texto
+            } catch (WriterException e) {
+                e.printStackTrace();
+                vista.getLblQR().setIcon(null);
+                vista.getLblQR().setText("QR no disponible");
+                // opcional: mostrar un JOptionPane.showMessageDialog(...) para avisar al usuario
+            }
+                
+            
+            vista.setFoto(icon);
         }
         
         // --- TAREAS ---
@@ -67,4 +90,28 @@ public class PerfilGatoControlador {
         vista.cargarTareas(tareas);
     }
 
+    private ImageIcon escalarManteniendoAspecto(byte[] bytesImagen, int maxAncho, int maxAlto) {
+        ImageIcon icon = new ImageIcon(bytesImagen);
+        Image img = icon.getImage();
+
+        int anchoOriginal = img.getWidth(null);
+        int altoOriginal = img.getHeight(null);
+
+        if (anchoOriginal <= 0 || altoOriginal <= 0) {
+            return icon; // imagen corrupta
+        }
+
+        // Calcular escala manteniendo proporción
+        double escalaAncho = (double) maxAncho / anchoOriginal;
+        double escalaAlto = (double) maxAlto / altoOriginal;
+        double escalaFinal = Math.min(escalaAncho, escalaAlto);
+
+        int nuevoAncho = (int) (anchoOriginal * escalaFinal);
+        int nuevoAlto = (int) (altoOriginal * escalaFinal);
+
+        Image imgEscalada = img.getScaledInstance(nuevoAncho, nuevoAlto, Image.SCALE_SMOOTH);
+
+        return new ImageIcon(imgEscalada);
+    }
+    
 }

@@ -4,6 +4,7 @@
  */
 package Controlador.voluntario;
 
+import Controlador.Gato.GatoControlador;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -12,6 +13,7 @@ import modelo.Gato;
 import modelo.Voluntario;
 import persistencia.ControladoraPersistencia;
 import vista.gato.VentanaPerfilGato;
+import vista.gato.VentanaRegistrarGato;
 import vista.voluntario.PanelPrincipalVoluntario;
 
 /**
@@ -33,7 +35,7 @@ public class VoluntarioControlador {
         configurarListeners();
     }
     
-    private void cargarGatosDesdeBD(){
+    public void cargarGatosDesdeBD(){
         gatos = controlPersistencia.traerGatos(); // trae todos los gatos
         // Convertir a lista de strings (el toString de Gato debe estar bueno, ej "id - nombre")
         List<String> items = gatos.stream()
@@ -58,6 +60,19 @@ public class VoluntarioControlador {
 
         // Listener del botón 
         vista.getBtnVerGato().addActionListener(e -> abrirPerfilGatoSeleccionado());
+        
+           // abrir registro de gato
+        vista.getBtnRegistrarGato().addActionListener(e -> abrirVentanaRegistrarGato());
+    }
+    
+    private void abrirVentanaRegistrarGato() {
+        VentanaRegistrarGato dialog = new VentanaRegistrarGato(null, true);
+
+        new GatoControlador(dialog, voluntario); // si necesitás más params, pasalos acá
+
+        dialog.setLocationRelativeTo(vista);
+        dialog.setVisible(true);
+        cargarGatosDesdeBD();
     }
     
     private void abrirPerfilGatoSeleccionado(){

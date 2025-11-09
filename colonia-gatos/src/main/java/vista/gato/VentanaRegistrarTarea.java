@@ -62,6 +62,9 @@ public class VentanaRegistrarTarea extends javax.swing.JDialog {
         panelRellenoDer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(800, 700));
+        setPreferredSize(new java.awt.Dimension(800, 700));
+        setResizable(false);
 
         panelPrincipal.setMaximumSize(new java.awt.Dimension(800, 2147483647));
         panelPrincipal.setMinimumSize(new java.awt.Dimension(800, 600));
@@ -79,14 +82,14 @@ public class VentanaRegistrarTarea extends javax.swing.JDialog {
         );
         panelRellenoIzqLayout.setVerticalGroup(
             panelRellenoIzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 598, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
 
         panelPrincipal.add(panelRellenoIzq, java.awt.BorderLayout.LINE_START);
 
         panelCentro.setMinimumSize(new java.awt.Dimension(400, 300));
         panelCentro.setPreferredSize(new java.awt.Dimension(400, 300));
-        panelCentro.setLayout(new java.awt.GridLayout(7, 1, 0, 35));
+        panelCentro.setLayout(new java.awt.GridLayout(7, 1, 0, 25));
 
         labelRegistrarse.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         labelRegistrarse.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -184,7 +187,7 @@ public class VentanaRegistrarTarea extends javax.swing.JDialog {
         );
         panelRellenoDerLayout.setVerticalGroup(
             panelRellenoDerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 598, Short.MAX_VALUE)
+            .addGap(0, 675, Short.MAX_VALUE)
         );
 
         panelPrincipal.add(panelRellenoDer, java.awt.BorderLayout.EAST);

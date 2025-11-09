@@ -43,21 +43,21 @@ public class RegistrarTareaControlador {
         
         this.vista.cargarZona(control.traerZonas());
         
-        this.vista.getBtnAgregarZona().addActionListener(e -> agregarZona());
-        vista.cargarTiposTarea(tipos);
-        this.vista.cargarZona(control.traerZonas());
+        this.vista.getBtnAgregarZona().addActionListener(e -> agregarZona(control));
         
         this.vista.getBtnGuardar().addActionListener(e -> guardarTarea());
         
     }
     
-    private void agregarZona(){
+    private void agregarZona(ControladoraPersistencia controlPersis){
         VentanaZona vistaZona = new VentanaZona(null, true);
         ZonaControlador zonaCont = new ZonaControlador(vistaZona, this.voluntario);
         vista.cargarTiposTarea(tipos);
+        vista.cargarZona(controlPersis.traerZonas());
         
         vistaZona.setLocationRelativeTo(vista);
         vistaZona.setVisible(true);
+        this.vista.cargarZona(controlPersis.traerZonas());
     }
     
     private void guardarTarea() {

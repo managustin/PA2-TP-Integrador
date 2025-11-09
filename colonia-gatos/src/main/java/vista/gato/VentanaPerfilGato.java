@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import modelo.Gato;
 import modelo.Tarea;
@@ -39,9 +40,15 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         panelRellenoDerecha = new javax.swing.JPanel();
         panelRellenoIzq = new javax.swing.JPanel();
         panelCentral = new javax.swing.JPanel();
+        panelArriba = new javax.swing.JPanel();
+        panelFoto = new javax.swing.JPanel();
         lblFoto = new javax.swing.JLabel();
+        panelInfo = new javax.swing.JPanel();
+        panelTexto = new javax.swing.JPanel();
         lblZona = new javax.swing.JLabel();
         lblEstado = new javax.swing.JLabel();
+        panelQR = new javax.swing.JPanel();
+        lblQR = new javax.swing.JLabel();
         PanelTareas = new javax.swing.JPanel();
         lblTareas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -73,7 +80,7 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         );
         panelRellenoDerechaLayout.setVerticalGroup(
             panelRellenoDerechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 1598, Short.MAX_VALUE)
         );
 
         getContentPane().add(panelRellenoDerecha, java.awt.BorderLayout.EAST);
@@ -89,21 +96,55 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         );
         panelRellenoIzqLayout.setVerticalGroup(
             panelRellenoIzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGap(0, 1598, Short.MAX_VALUE)
         );
 
         getContentPane().add(panelRellenoIzq, java.awt.BorderLayout.LINE_START);
 
-        panelCentral.setLayout(new java.awt.GridLayout(4, 0));
+        panelCentral.setLayout(new java.awt.GridLayout(2, 2, 15, 0));
+
+        panelArriba.setMinimumSize(new java.awt.Dimension(450, 450));
+        panelArriba.setPreferredSize(new java.awt.Dimension(450, 450));
+        panelArriba.setLayout(new java.awt.GridLayout(1, 2, 25, 0));
 
         lblFoto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        panelCentral.add(lblFoto);
+        lblFoto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblFoto.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        lblFoto.setMinimumSize(new java.awt.Dimension(400, 400));
+        lblFoto.setPreferredSize(new java.awt.Dimension(400, 400));
+        panelFoto.add(lblFoto);
+
+        panelArriba.add(panelFoto);
+
+        panelInfo.setMinimumSize(new java.awt.Dimension(450, 450));
+        panelInfo.setPreferredSize(new java.awt.Dimension(200, 450));
+        panelInfo.setLayout(new java.awt.GridLayout(2, 0));
+
+        panelTexto.setLayout(new java.awt.GridLayout(2, 0));
 
         lblZona.setText("Zona");
-        panelCentral.add(lblZona);
+        panelTexto.add(lblZona);
 
         lblEstado.setText("Estado");
-        panelCentral.add(lblEstado);
+        panelTexto.add(lblEstado);
+
+        panelInfo.add(panelTexto);
+
+        panelQR.setAlignmentX(0.0F);
+        panelQR.setAlignmentY(0.0F);
+        panelQR.setLayout(new java.awt.GridLayout());
+
+        lblQR.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblQR.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        lblQR.setMinimumSize(new java.awt.Dimension(200, 500));
+        lblQR.setPreferredSize(new java.awt.Dimension(200, 500));
+        panelQR.add(lblQR);
+
+        panelInfo.add(panelQR);
+
+        panelArriba.add(panelInfo);
+
+        panelCentral.add(panelArriba);
 
         PanelTareas.setLayout(new java.awt.GridLayout(2, 1));
 
@@ -192,16 +233,24 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblQR;
     private javax.swing.JLabel lblTareas;
     private javax.swing.JLabel lblZona;
     private javax.swing.JList<String> listaTareas;
+    private javax.swing.JPanel panelArriba;
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelCentral;
+    private javax.swing.JPanel panelFoto;
+    private javax.swing.JPanel panelInfo;
     private javax.swing.JPanel panelNorth;
+    private javax.swing.JPanel panelQR;
     private javax.swing.JPanel panelRellenoDerecha;
     private javax.swing.JPanel panelRellenoIzq;
+    private javax.swing.JPanel panelTexto;
     // End of variables declaration//GEN-END:variables
 
+    
+    
 // setters desde controlador:
     public void setNombreGato(String nombre) {
         lblNombre.setText(nombre);
@@ -234,7 +283,14 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         public JButton getBtnRegistrarTarea(){
             return btnRegistrarTarea;
         }
-        
+
+    public JLabel getLblFoto() {
+        return lblFoto;
+    }
+
+    public JLabel getLblQR() {
+        return lblQR;
+    }
 }
 
 

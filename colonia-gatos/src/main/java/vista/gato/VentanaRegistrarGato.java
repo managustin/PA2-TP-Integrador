@@ -4,6 +4,14 @@
  */
 package vista.gato;
 
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import modelo.EstadoSalud;
+import modelo.Zona;
+
 /**
  *
  * @author ms_ma
@@ -40,6 +48,8 @@ public class VentanaRegistrarGato extends javax.swing.JDialog {
         panelColor = new javax.swing.JPanel();
         lblColor = new javax.swing.JLabel();
         txtColor = new javax.swing.JTextField();
+        panelEsterilizado = new javax.swing.JPanel();
+        chkEsterilizado = new javax.swing.JCheckBox();
         panelUbicacion = new javax.swing.JPanel();
         lblZona = new javax.swing.JLabel();
         panelSeleccionarUbicacion = new javax.swing.JPanel();
@@ -53,8 +63,7 @@ public class VentanaRegistrarGato extends javax.swing.JDialog {
         lblEstadoSalud = new javax.swing.JLabel();
         comboEstadoSalud = new javax.swing.JComboBox<>();
         panelCaracteristicas1 = new javax.swing.JPanel();
-        lblCaracteristicas1 = new javax.swing.JLabel();
-        txtCaracteristicas1 = new javax.swing.JTextField();
+        btnSeleccionarFoto = new javax.swing.JButton();
         panelBoton = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         panelRellenoDer = new javax.swing.JPanel();
@@ -84,7 +93,7 @@ public class VentanaRegistrarGato extends javax.swing.JDialog {
 
         panelCentro.setMinimumSize(new java.awt.Dimension(400, 300));
         panelCentro.setPreferredSize(new java.awt.Dimension(400, 300));
-        panelCentro.setLayout(new java.awt.GridLayout(8, 1, 0, 35));
+        panelCentro.setLayout(new java.awt.GridLayout(9, 1, 0, 35));
 
         labelRegistrarse.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         labelRegistrarse.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -115,6 +124,12 @@ public class VentanaRegistrarGato extends javax.swing.JDialog {
 
         panelCentro.add(panelColor);
 
+        chkEsterilizado.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        chkEsterilizado.setText("Esterilizado");
+        panelEsterilizado.add(chkEsterilizado);
+
+        panelCentro.add(panelEsterilizado);
+
         panelUbicacion.setLayout(new java.awt.GridLayout(2, 1));
 
         lblZona.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -124,7 +139,6 @@ public class VentanaRegistrarGato extends javax.swing.JDialog {
 
         panelSeleccionarUbicacion.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 50, 0));
 
-        comboZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         panelSeleccionarUbicacion.add(comboZona);
 
         texto.setText("¿La ubicación no está registrada?");
@@ -157,18 +171,12 @@ public class VentanaRegistrarGato extends javax.swing.JDialog {
         lblEstadoSalud.setToolTipText("");
         panelEstadoSalud.add(lblEstadoSalud);
 
-        comboEstadoSalud.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         panelEstadoSalud.add(comboEstadoSalud);
 
         panelCentro.add(panelEstadoSalud);
 
-        panelCaracteristicas1.setLayout(new java.awt.GridLayout(2, 1));
-
-        lblCaracteristicas1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblCaracteristicas1.setText("Agregar Foto");
-        lblCaracteristicas1.setToolTipText("");
-        panelCaracteristicas1.add(lblCaracteristicas1);
-        panelCaracteristicas1.add(txtCaracteristicas1);
+        btnSeleccionarFoto.setText("Agregar Foto");
+        panelCaracteristicas1.add(btnSeleccionarFoto);
 
         panelCentro.add(panelCaracteristicas1);
 
@@ -252,11 +260,12 @@ public class VentanaRegistrarGato extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregarUbicacion;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> comboEstadoSalud;
-    private javax.swing.JComboBox<String> comboZona;
+    private javax.swing.JButton btnSeleccionarFoto;
+    private javax.swing.JCheckBox chkEsterilizado;
+    private javax.swing.JComboBox<EstadoSalud> comboEstadoSalud;
+    private javax.swing.JComboBox<Zona> comboZona;
     private javax.swing.JLabel labelRegistrarse;
     private javax.swing.JLabel lblCaracteristicas;
-    private javax.swing.JLabel lblCaracteristicas1;
     private javax.swing.JLabel lblColor;
     private javax.swing.JLabel lblEstadoSalud;
     private javax.swing.JLabel lblTipoTarea;
@@ -267,6 +276,7 @@ public class VentanaRegistrarGato extends javax.swing.JDialog {
     private javax.swing.JPanel panelCentro;
     private javax.swing.JPanel panelColor;
     private javax.swing.JPanel panelEstadoSalud;
+    private javax.swing.JPanel panelEsterilizado;
     private javax.swing.JPanel panelNombre;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JPanel panelRellenoDer;
@@ -276,11 +286,58 @@ public class VentanaRegistrarGato extends javax.swing.JDialog {
     private javax.swing.JPanel panelUbicacion;
     private javax.swing.JLabel texto;
     private javax.swing.JTextField txtCaracteristicas;
-    private javax.swing.JTextField txtCaracteristicas1;
     private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
+
+    public void cargarZona(List<Zona> zonas) {
+        comboZona.removeAllItems();
+        for (Zona z : zonas) {
+            comboZona.addItem(z);
+        }
+    }
     
+    public void cargarEstadoSalud(EstadoSalud[] estados){
+        comboEstadoSalud.removeAllItems();
+        for (EstadoSalud e: estados){
+            comboEstadoSalud.addItem(e);
+        }
+    }
+
+    public JButton getBtnSeleccionarFoto() {
+        return btnSeleccionarFoto;
+    }
     
+    public JButton getBtnAgregarUbicacion() {
+        return btnAgregarUbicacion;
+    }
+
+    public JCheckBox getChkEsterilizado() {
+        return chkEsterilizado;
+    }
+
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
+
+    public JComboBox<EstadoSalud> getComboEstadoSalud() {
+        return comboEstadoSalud;
+    }
+
+    public JComboBox<Zona> getComboZona() {
+        return comboZona;
+    }
+
+    public JTextField getTxtCaracteristicas() {
+        return txtCaracteristicas;
+    }
+
+    public JTextField getTxtColor() {
+        return txtColor;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
 
 }
