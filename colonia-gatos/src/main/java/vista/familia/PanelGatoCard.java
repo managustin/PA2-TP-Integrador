@@ -6,6 +6,7 @@ package vista.familia;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import modelo.Gato;
 
 /**
@@ -90,4 +91,8 @@ public class PanelGatoCard extends javax.swing.JPanel {
     private javax.swing.JLabel lblNombre;
     private javax.swing.JPanel panel;
     // End of variables declaration//GEN-END:variables
+
+    public JButton getBtnVerGato() {
+        return btnVerGato;
+    }
 }

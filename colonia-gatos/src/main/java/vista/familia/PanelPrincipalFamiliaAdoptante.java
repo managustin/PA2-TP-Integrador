@@ -76,9 +76,6 @@ public class PanelPrincipalFamiliaAdoptante extends javax.swing.JPanel {
     public JLabel getLblBienvenido() {
         return lblBienvenido;
     }
-
-    
-    
     public void setLblBienvenido(JLabel lblBienvenido) {
         this.lblBienvenido = lblBienvenido;
     }

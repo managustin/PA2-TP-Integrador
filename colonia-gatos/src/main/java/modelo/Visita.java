@@ -50,6 +50,14 @@ public class Visita implements Serializable {
         this.observaciones = observaciones;
         this.resultado = resultado;
     }
+    
+    public void setAdop(Adopcion adop) {
+        this.adop = adop;
+    }
+
+    public Adopcion getAdop() {
+        return this.adop;
+    }
 
     public int getId_visita() {
         return id_visita;

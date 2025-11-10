@@ -11,6 +11,10 @@ package modelo;
 public enum EstadoAdopcion {
     PENDIENTE,
     ACTIVA,
-    FINALIZADA,
-    CANCELADA
+    CANCELADA;
+
+    @Override
+    public String toString() {
+        return name();
+    }
 }

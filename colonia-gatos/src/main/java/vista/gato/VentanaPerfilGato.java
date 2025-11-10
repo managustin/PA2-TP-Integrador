@@ -49,13 +49,21 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         lblEstado = new javax.swing.JLabel();
         panelQR = new javax.swing.JPanel();
         lblQR = new javax.swing.JLabel();
+        panelAbajo = new javax.swing.JPanel();
         PanelTareas = new javax.swing.JPanel();
         lblTareas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaTareas = new javax.swing.JList<>();
+        panelFamiliasPostuladas = new javax.swing.JPanel();
+        lblFamilias = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        listaFamilias = new javax.swing.JList<>();
         panelBotones = new javax.swing.JPanel();
         btnRegistrarTarea = new javax.swing.JButton();
         btnVerHistorialMedico = new javax.swing.JButton();
+        btnPostular = new javax.swing.JButton();
+        btnRevisarPostulacion = new javax.swing.JButton();
+        btnVisitas = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(900, 800));
@@ -132,7 +140,7 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
 
         panelQR.setAlignmentX(0.0F);
         panelQR.setAlignmentY(0.0F);
-        panelQR.setLayout(new java.awt.GridLayout());
+        panelQR.setLayout(new java.awt.GridLayout(1, 0));
 
         lblQR.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         lblQR.setMaximumSize(new java.awt.Dimension(1000, 1000));
@@ -145,6 +153,8 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         panelArriba.add(panelInfo);
 
         panelCentral.add(panelArriba);
+
+        panelAbajo.setLayout(new java.awt.GridLayout(1, 2, 15, 0));
 
         PanelTareas.setLayout(new java.awt.GridLayout(2, 1));
 
@@ -164,7 +174,29 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
 
         PanelTareas.add(jScrollPane1);
 
-        panelCentral.add(PanelTareas);
+        panelAbajo.add(PanelTareas);
+
+        panelFamiliasPostuladas.setLayout(new java.awt.GridLayout(2, 2));
+
+        lblFamilias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblFamilias.setText("Familias Postuladas");
+        panelFamiliasPostuladas.add(lblFamilias);
+
+        listaFamilias.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listaFamilias.setMaximumSize(new java.awt.Dimension(100, 250));
+        listaFamilias.setMinimumSize(new java.awt.Dimension(45, 150));
+        listaFamilias.setPreferredSize(new java.awt.Dimension(45, 150));
+        jScrollPane2.setViewportView(listaFamilias);
+
+        panelFamiliasPostuladas.add(jScrollPane2);
+
+        panelAbajo.add(panelFamiliasPostuladas);
+
+        panelCentral.add(panelAbajo);
 
         getContentPane().add(panelCentral, java.awt.BorderLayout.CENTER);
 
@@ -182,6 +214,20 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         btnVerHistorialMedico.setText("Ver historial Médico");
         panelBotones.add(btnVerHistorialMedico);
 
+        btnPostular.setText("Postularse para adopción");
+        btnPostular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPostularActionPerformed(evt);
+            }
+        });
+        panelBotones.add(btnPostular);
+
+        btnRevisarPostulacion.setText("Revisar Postulacion");
+        panelBotones.add(btnRevisarPostulacion);
+
+        btnVisitas.setText("Gestionar Visitas");
+        panelBotones.add(btnVisitas);
+
         getContentPane().add(panelBotones, java.awt.BorderLayout.SOUTH);
 
         pack();
@@ -190,6 +236,10 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
     private void btnRegistrarTareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTareaActionPerformed
                 
     }//GEN-LAST:event_btnRegistrarTareaActionPerformed
+
+    private void btnPostularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPostularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPostularActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -227,19 +277,27 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTareas;
+    private javax.swing.JButton btnPostular;
     private javax.swing.JButton btnRegistrarTarea;
+    private javax.swing.JButton btnRevisarPostulacion;
     private javax.swing.JButton btnVerHistorialMedico;
+    private javax.swing.JButton btnVisitas;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblFamilias;
     private javax.swing.JLabel lblFoto;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblQR;
     private javax.swing.JLabel lblTareas;
     private javax.swing.JLabel lblZona;
+    private javax.swing.JList<String> listaFamilias;
     private javax.swing.JList<String> listaTareas;
+    private javax.swing.JPanel panelAbajo;
     private javax.swing.JPanel panelArriba;
     private javax.swing.JPanel panelBotones;
     private javax.swing.JPanel panelCentral;
+    private javax.swing.JPanel panelFamiliasPostuladas;
     private javax.swing.JPanel panelFoto;
     private javax.swing.JPanel panelInfo;
     private javax.swing.JPanel panelNorth;
@@ -279,10 +337,34 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         public JList<String> getListaTareas() {
         return listaTareas;
     }
+
+    public JButton getBtnRevisarPostulacion() {
+        return btnRevisarPostulacion;
+    }
+
+    public JButton getBtnVisitas() {
+        return btnVisitas;
+    }
+
+    public JList<String> getListaFamilias() {
+        return listaFamilias;
+    }
+    
+    public int getIndiceFamiliaSeleccionado() {
+        return listaFamilias.getSelectedIndex();
+    }    
         
-        public JButton getBtnRegistrarTarea(){
-            return btnRegistrarTarea;
-        }
+    public JButton getBtnRegistrarTarea(){
+        return btnRegistrarTarea;
+    }
+
+    public JButton getBtnPostular() {
+        return btnPostular;
+    }
+
+    public JButton getBtnVerHistorialMedico() {
+        return btnVerHistorialMedico;
+    }
 
     public JLabel getLblFoto() {
         return lblFoto;

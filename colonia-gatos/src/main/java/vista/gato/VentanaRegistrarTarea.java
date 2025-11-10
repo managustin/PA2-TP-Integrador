@@ -63,7 +63,6 @@ public class VentanaRegistrarTarea extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 700));
-        setPreferredSize(new java.awt.Dimension(800, 700));
         setResizable(false);
 
         panelPrincipal.setMaximumSize(new java.awt.Dimension(800, 2147483647));

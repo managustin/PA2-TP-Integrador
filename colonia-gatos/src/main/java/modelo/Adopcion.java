@@ -57,6 +57,30 @@ public class Adopcion implements Serializable {
         this.fechaFin = fechaFin;
     }
 
+    public Gato getMichi() {
+        return michi;
+    }
+
+    public FamiliaAdoptante getFamilia() {
+        return familia;
+    }
+
+    public List<Visita> getVisitas() {
+        return visitas;
+    }
+
+    public void setMichi(Gato michi) {
+        this.michi = michi;
+    }
+
+    public void setFamilia(FamiliaAdoptante familia) {
+        this.familia = familia;
+    }
+
+    public void setVisitas(List<Visita> visitas) {
+        this.visitas = visitas;
+    }
+
     public int getId_adopcion() {
         return id_adopcion;
     }

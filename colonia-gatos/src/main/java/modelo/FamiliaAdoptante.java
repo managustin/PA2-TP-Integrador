@@ -51,5 +51,21 @@ public class FamiliaAdoptante extends Usuario implements Serializable {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+    public List<Adopcion> getAdopciones() {
+        return adopciones;
+    }    
     
+    public boolean yaPostuloPor(Gato gato) {
+    if (adopciones == null || adopciones.isEmpty()) return false;
+    for (Adopcion a : adopciones) {
+        if (a.getMichi() != null
+                && a.getMichi().getId_gato() == gato.getId_gato()
+                && a.getEstado() == EstadoAdopcion.PENDIENTE) {
+            return true;
+        }
+    }
+    return false;
+}
+
 }
