@@ -52,6 +52,15 @@ public class RegistroMedico implements Serializable {
         this.historial = historial;
     }
 
+    public Veterinario getVet() {
+        return vet;
+    }
+
+    public void setVet(Veterinario vet) {
+        this.vet = vet;
+    }
+
+    
     public int getId_rm() {
         return id_rm;
     }
@@ -99,6 +108,14 @@ public class RegistroMedico implements Serializable {
     public void setHistorial(HistorialMedico historial) {
         this.historial = historial;
     }
-
     
+    @Override
+    public String toString() {
+        return "Tipo: " + tipo +
+               "\nFecha: " + fecha +
+               "\nDescripción: " + descripcion +
+               "\nEstudio adjunto: " + (archivoEstudio != null ? archivoEstudio : "Ninguno");
+    }    
+
+
 }

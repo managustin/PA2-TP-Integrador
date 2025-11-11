@@ -4,6 +4,7 @@
  */
 package Controlador.voluntario;
 
+import Controlador.Gato.PerfilGatoControlador;
 import Controlador.Gato.GatoControlador;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -24,7 +25,9 @@ public class VoluntarioControlador {
     private PanelPrincipalVoluntario vista;
     private Voluntario voluntario;
     private ControladoraPersistencia controlPersistencia;
-    private List<Gato> gatos; // lista real de objetos
+    private List<Gato> noAdoptados;
+    private List<Gato> adoptados;
+
 
     public VoluntarioControlador(PanelPrincipalVoluntario vista, Voluntario voluntario){
         this.vista = vista;
@@ -35,35 +38,77 @@ public class VoluntarioControlador {
         configurarListeners();
     }
     
-    public void cargarGatosDesdeBD(){
-        gatos = controlPersistencia.traerGatos(); // trae todos los gatos
-        // Convertir a lista de strings (el toString de Gato debe estar bueno, ej "id - nombre")
-        List<String> items = gatos.stream()
-                                 .map(g -> g.toString())
-                                 .toList();
-        vista.cargarListaGatosComoStrings(items);
-        vista.getBtnVerGato().setEnabled(false); // deshabilita botón hasta selección
+    public void cargarGatosDesdeBD() {
+
+        List<Gato> todos = controlPersistencia.traerGatos();
+
+        // separar adoptados vs no adoptados
+        this.adoptados = todos.stream()
+            .filter(g -> controlPersistencia.tieneAdopcionActiva(g))
+            .toList();
+
+        this.noAdoptados = todos.stream()
+            .filter(g -> !controlPersistencia.tieneAdopcionActiva(g))
+            .toList();
+
+        // formatear strings
+        List<String> stringsNoAdoptados = this.noAdoptados.stream()
+            .map(g -> formatearGato(g))
+            .toList();
+
+        List<String> stringsAdoptados = this.adoptados.stream()
+            .map(g -> g.toString())
+            .toList();
+
+        // enviar a la vista
+        vista.cargarListaGatosNoAdoptados(stringsNoAdoptados);
+        vista.cargarListaGatosAdoptados(stringsAdoptados);
+
+        vista.getBtnVerGato().setEnabled(false);
     }
 
-    private void configurarListeners(){
-        // Habilitar botón cuando haya selección
-        vista.getListaGatos().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                // ignore adjusting events
-                if (!e.getValueIsAdjusting()) {
-                    int idx = vista.getIndiceGatoSeleccionado();
-                    vista.getBtnVerGato().setEnabled(idx >= 0);
+ 
+   private String formatearGato(Gato g) {
+        boolean tienePendientes = controlPersistencia.tienePostulacionesPendientes(g);
+
+        String base = g.toString();
+
+        if (tienePendientes) {
+            return base + "  | POSTULACIONES PARA REVISAR";
+        } else {
+            return base;
+        }
+    }
+
+
+    private void configurarListeners() {
+
+        vista.getListaGatosNoAdoptados().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+
+                if (vista.getListaGatosNoAdoptados().getSelectedIndex() >= 0) {
+                    // limpiar la otra lista, NO esta
+                    vista.getListaGatosAdoptados().clearSelection();
+                    vista.getBtnVerGato().setEnabled(true);
                 }
             }
         });
 
-        // Listener del botón 
+        vista.getListaGatosAdoptados().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+
+                if (vista.getListaGatosAdoptados().getSelectedIndex() >= 0) {
+                    // limpiar la otra lista, NO esta
+                    vista.getListaGatosNoAdoptados().clearSelection();
+                    vista.getBtnVerGato().setEnabled(true);
+                }
+            }
+        });
+
         vista.getBtnVerGato().addActionListener(e -> abrirPerfilGatoSeleccionado());
-        
-           // abrir registro de gato
         vista.getBtnRegistrarGato().addActionListener(e -> abrirVentanaRegistrarGato());
     }
+
     
     private void abrirVentanaRegistrarGato() {
         VentanaRegistrarGato dialog = new VentanaRegistrarGato(null, true);
@@ -75,23 +120,24 @@ public class VoluntarioControlador {
         cargarGatosDesdeBD();
     }
     
-    private void abrirPerfilGatoSeleccionado(){
-        int idx = vista.getIndiceGatoSeleccionado();
-        if (idx < 0) {
-            JOptionPane.showMessageDialog(vista, "Seleccioná un gato.");
-            return;
+    private void abrirPerfilGatoSeleccionado() {
+
+        int idxNoAdoptados = vista.getListaGatosNoAdoptados().getSelectedIndex();
+        int idxAdoptados = vista.getListaGatosAdoptados().getSelectedIndex();
+
+        Gato seleccionado;
+
+        if (idxNoAdoptados >= 0) {
+            seleccionado = noAdoptados.get(idxNoAdoptados);
+        } else {
+            seleccionado = adoptados.get(idxAdoptados);
         }
 
-        Gato seleccionado = gatos.get(idx);
-
-        // VentanaPerfilGato debe ser un JDialog modal con constructor que reciba Gato
         VentanaPerfilGato dialog = new VentanaPerfilGato(null, true, seleccionado);
-
         new PerfilGatoControlador(dialog, seleccionado, voluntario);
-
         dialog.setLocationRelativeTo(vista);
         dialog.setVisible(true);
-        // cuando se cierre el dialog, si hiciste cambios podrías recargar:
-        // cargarGatosDesdeBD(); // opcional si se modificó algo
+        cargarGatosDesdeBD();
     }
+
 }

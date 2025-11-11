@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.EstadoSalud;
 import modelo.Gato;
+import modelo.HistorialMedico;
 import modelo.Voluntario;
 import modelo.Zona;
 import persistencia.ControladoraPersistencia;
@@ -93,6 +94,9 @@ public class GatoControlador {
             gato.setEsterilizado(vista.getChkEsterilizado().isSelected());
             gato.setFoto(fotoSeleccionada);
             gato.setVolun(voluntario);
+            HistorialMedico historial = new HistorialMedico();
+            controlPersis.crearHistorial(historial);
+            gato.setHistorial(historial);
             
             controlPersis.crearGato(gato);
             

@@ -31,6 +31,7 @@ public class Gato implements Serializable {
     private String nombre;
     private String color;
     private String caracteristicas;
+    private boolean aptoParaAdopcion;
     
     @Lob
     @Column(columnDefinition = "LONGBLOB")
@@ -55,10 +56,6 @@ public class Gato implements Serializable {
     
     @OneToMany (mappedBy="michi")
     private List<Adopcion> adopciones = new ArrayList<>();
-    
-    @ManyToOne
-    @JoinColumn(name="id_vet")
-    private Veterinario vet;
 
     public Gato() {
     }
@@ -75,7 +72,7 @@ public class Gato implements Serializable {
         this.esterilizado = esterilizado;
         this.historial = historial;
         this.volun = volun;
-        this.vet = vet;
+        this.aptoParaAdopcion = false;
     }
 
     public int getId_gato() {
@@ -91,10 +88,6 @@ public class Gato implements Serializable {
     }
 
     // ----------------------------- Getters -----------------------------
-    public Veterinario getVet() {
-        return vet;
-    }
-
     public int getIdGato() {
         return id_gato;
     }
@@ -138,11 +131,25 @@ public class Gato implements Serializable {
     public HistorialMedico getHistorial() {
         return historial;
     }
-    // ----------------------------- Setters ----------------------------- 
 
+    public boolean isAptoParaAdopcion() {
+        return aptoParaAdopcion;
+    }
+    
+    
+    
+    
+    // ----------------------------- Setters ----------------------------- 
+    
+    
     public void setId_gato(int id_gato) {
         this.id_gato = id_gato;
     }
+
+    public void setAptoParaAdopcion(boolean aptoParaAdopcion) {
+        this.aptoParaAdopcion = aptoParaAdopcion;
+    }
+    
 
     public void setHistorial(HistorialMedico historial) {
         this.historial = historial;
@@ -155,11 +162,6 @@ public class Gato implements Serializable {
     public void setAdopciones(List<Adopcion> adopciones) {
         this.adopciones = adopciones;
     }
-
-    public void setVet(Veterinario vet) {
-        this.vet = vet;
-    }
-    
     
 
     public void setId(int id_gato) {

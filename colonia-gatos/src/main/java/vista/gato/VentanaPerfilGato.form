@@ -368,7 +368,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegistrarTareaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnVerHistorialMedico">
+        <Component class="javax.swing.JButton" name="btnHistorialMedico">
           <Properties>
             <Property name="text" type="java.lang.String" value="Ver historial M&#xe9;dico"/>
           </Properties>

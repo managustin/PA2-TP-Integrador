@@ -2,9 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controlador.voluntario;
+package Controlador.Gato;
 
 import Controlador.QrGenerator;
+import Controlador.voluntario.ControladorVentanaVisitas;
+import Controlador.voluntario.RegistrarTareaControlador;
 import com.google.zxing.WriterException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -17,12 +19,15 @@ import modelo.Adopcion;
 import modelo.EstadoAdopcion;
 import modelo.FamiliaAdoptante;
 import modelo.Gato;
+import modelo.RolUsuario;
 import modelo.Tarea;
 import modelo.TipoAdopcion;
 import modelo.Usuario;
+import modelo.Veterinario;
 import modelo.Visita;
 import modelo.Voluntario;
 import persistencia.ControladoraPersistencia;
+import vista.gato.VentanaHistorialMedico;
 import vista.gato.VentanaPerfilGato;
 import vista.gato.VentanaRegistrarTarea;
 import vista.gato.VentanaVisitas;
@@ -51,35 +56,52 @@ public class PerfilGatoControlador {
         configurarEventos();
     }
     
-    private void ajustarBotonesSegunEstado() {
-        if (usuario instanceof FamiliaAdoptante) {
-            FamiliaAdoptante familia = (FamiliaAdoptante) usuario;
-            boolean yaPostulo = controlPersis.existePostulacion(gato, familia);
-            vista.getBtnPostular().setEnabled(!yaPostulo);
-            vista.getBtnPostular().setText(yaPostulo ? "Ya se postuló" : "Postularse para adoptar");
-
-            // para familias, siempre ocultamos los botones de voluntario
-            vista.getBtnRevisarPostulacion().setVisible(false);
-            vista.getBtnVisitas().setVisible(false);
-
-        } else if (usuario instanceof Voluntario) {
-            Voluntario voluntario = (Voluntario) usuario;
-
-            // ocultamos el botón de postular para voluntarios
-            vista.getBtnPostular().setVisible(false);
-
-            // ahora vemos si el gato ya tiene adopción aceptada
-            Adopcion adopcionAceptada = controlPersis.traerAdopcionAceptada(gato);
-            if (adopcionAceptada != null) {
-                vista.getBtnRevisarPostulacion().setVisible(false);
-                vista.getBtnVisitas().setVisible(true);
-            } else {
-                vista.getBtnRevisarPostulacion().setVisible(true);
-                vista.getBtnVisitas().setVisible(false);
-            }
-        }
+    private RolUsuario obtenerRol(Usuario u) {
+        if (u instanceof FamiliaAdoptante) return RolUsuario.FAMILIA;
+        if (u instanceof Voluntario) return RolUsuario.VOLUNTARIO;
+        if (u instanceof Veterinario) return RolUsuario.VETERINARIO;
+        throw new IllegalArgumentException("Rol no soportado");
     }
 
+    private void ajustarBotonesSegunEstado() {
+        RolUsuario rol = obtenerRol(usuario);
+
+        switch (rol) {
+            case FAMILIA -> ajustarParaFamilia();
+            case VOLUNTARIO -> ajustarParaVoluntario();
+            case VETERINARIO -> ajustarParaVeterinario();
+        }
+    }
+    
+    private void ajustarParaFamilia() {
+        boolean yaPostulo = controlPersis.existePostulacion(gato, (FamiliaAdoptante) usuario);
+        vista.getBtnPostular().setEnabled(!yaPostulo);
+        vista.getBtnPostular().setText(yaPostulo ? "Ya se postuló" : "Postularse para adoptar");
+
+        vista.getBtnRevisarPostulacion().setVisible(false);
+        vista.getBtnVisitas().setVisible(false);
+        vista.getBtnVerHistorialMedico().setVisible(false);
+        vista.getBtnRegistrarTarea().setVisible(false);
+    }
+
+    private void ajustarParaVoluntario() {
+        vista.getBtnPostular().setVisible(false);
+
+        Adopcion adopcionAceptada = controlPersis.traerAdopcionAceptada(gato);
+        vista.getBtnRevisarPostulacion().setVisible(adopcionAceptada == null);
+        vista.getBtnVisitas().setVisible(adopcionAceptada != null);
+
+        vista.getBtnVerHistorialMedico().setVisible(false);
+    }
+
+    private void ajustarParaVeterinario() {
+        vista.getBtnPostular().setVisible(false);
+        vista.getBtnRevisarPostulacion().setVisible(false);
+        vista.getBtnVisitas().setVisible(false);
+        vista.getBtnRegistrarTarea().setVisible(false);
+
+        vista.getBtnVerHistorialMedico().setVisible(true);
+    }
     
     private void mostrarDatos() {
         vista.setNombreGato(gato.getNombre());
@@ -120,6 +142,7 @@ public class PerfilGatoControlador {
         vista.getBtnPostular().addActionListener(e -> postularGato());
         vista.getBtnRevisarPostulacion().addActionListener(e -> revisarPostulacion());
         vista.getBtnVisitas().addActionListener(e -> abrirVentanaVisitas());
+        vista.getBtnVerHistorialMedico().addActionListener(e -> abrirVentanaHistorial());
     }
     
     private void cargarFamiliasPostuladas() {
@@ -204,6 +227,19 @@ public class PerfilGatoControlador {
 
         JOptionPane.showMessageDialog(vista, "Postulación enviada correctamente!");
         vista.getBtnPostular().setEnabled(false);        
+    }
+    
+    private void abrirVentanaHistorial(){
+        VentanaHistorialMedico dialog = new VentanaHistorialMedico(
+            vista,  // parent
+            true   // modal
+        );
+        new HistorialMedicoControlador(dialog, gato, (Veterinario) usuario);
+        dialog.setLocationRelativeTo(vista);
+        dialog.setVisible(true);
+
+        // cuando se cierre el dialog, actualizar estado por si hubo un cambio:
+        vista.setEstado("Estado de Salud: " + gato.getEstadoSalud());
     }
 
 

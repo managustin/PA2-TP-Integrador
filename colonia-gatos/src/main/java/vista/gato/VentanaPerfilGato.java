@@ -60,7 +60,7 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         listaFamilias = new javax.swing.JList<>();
         panelBotones = new javax.swing.JPanel();
         btnRegistrarTarea = new javax.swing.JButton();
-        btnVerHistorialMedico = new javax.swing.JButton();
+        btnHistorialMedico = new javax.swing.JButton();
         btnPostular = new javax.swing.JButton();
         btnRevisarPostulacion = new javax.swing.JButton();
         btnVisitas = new javax.swing.JButton();
@@ -211,8 +211,8 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
         });
         panelBotones.add(btnRegistrarTarea);
 
-        btnVerHistorialMedico.setText("Ver historial Médico");
-        panelBotones.add(btnVerHistorialMedico);
+        btnHistorialMedico.setText("Ver historial Médico");
+        panelBotones.add(btnHistorialMedico);
 
         btnPostular.setText("Postularse para adopción");
         btnPostular.addActionListener(new java.awt.event.ActionListener() {
@@ -277,10 +277,10 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTareas;
+    private javax.swing.JButton btnHistorialMedico;
     private javax.swing.JButton btnPostular;
     private javax.swing.JButton btnRegistrarTarea;
     private javax.swing.JButton btnRevisarPostulacion;
-    private javax.swing.JButton btnVerHistorialMedico;
     private javax.swing.JButton btnVisitas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -363,7 +363,7 @@ public class VentanaPerfilGato extends javax.swing.JDialog {
     }
 
     public JButton getBtnVerHistorialMedico() {
-        return btnVerHistorialMedico;
+        return btnHistorialMedico;
     }
 
     public JLabel getLblFoto() {

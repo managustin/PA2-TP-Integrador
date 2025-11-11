@@ -14,9 +14,11 @@ import modelo.EstadoAdopcion;
 import modelo.FamiliaAdoptante;
 import modelo.Gato;
 import modelo.HistorialMedico;
+import modelo.RegistroMedico;
 import modelo.Tarea;
 import modelo.TipoTarea;
 import modelo.Usuario;
+import modelo.Veterinario;
 import modelo.Visita;
 import modelo.Voluntario;
 import modelo.Zona;
@@ -34,10 +36,41 @@ public class ControladoraPersistencia {
     private UsuarioJpaController usuarioJpa = new UsuarioJpaController();
     private AdopcionJpaController adopcionJpa = new AdopcionJpaController();
     private VisitaJpaController visitaJpa = new VisitaJpaController();
+    private VeterinarioJpaController veterinarioJpa = new VeterinarioJpaController();
+    private HistorialMedicoJpaController HistorialJpa = new HistorialMedicoJpaController();
+    private RegistroMedicoJpaController RegistroJpa = new RegistroMedicoJpaController();
 
     public ControladoraPersistencia() {
     }
     
+    // VETERINARIOS
+
+    public void crearVeterinario(Veterinario veterinario){
+        veterinarioJpa.create(veterinario);
+    }
+
+    public List<Veterinario> traerVeterinarios(){
+        return veterinarioJpa.findVeterinarioEntities();
+    }
+    
+    public void crearHistorial(HistorialMedico historial) {
+        HistorialJpa.create(historial);
+    }
+    
+    public List<RegistroMedico> traerRegistros(HistorialMedico historial) {
+        EntityManager em = RegistroJpa.getEntityManager();
+        List<RegistroMedico> lista = em.createQuery(
+            "SELECT r FROM RegistroMedico r WHERE r.historial = :h", RegistroMedico.class)
+            .setParameter("h", historial)
+            .getResultList();
+
+        return lista != null ? lista : List.of();
+    }
+    
+    public void crearRegistroMedico(RegistroMedico reg) {
+        RegistroJpa.create(reg);
+    }    
+            
     // USUARIOS
     
     public Usuario validarLogin(String email, String password) {
@@ -91,7 +124,6 @@ public class ControladoraPersistencia {
     }
 
     public void actualizarAdopcion(Adopcion adopcion) {
-        AdopcionJpaController adopcionJpa = new AdopcionJpaController();
         try {
             adopcionJpa.edit(adopcion);
         } catch (Exception e) {
@@ -109,6 +141,14 @@ public class ControladoraPersistencia {
             }
         }
         return null;
+    }
+    
+    public boolean tieneAdopcionActiva(Gato gato) {
+        return traerAdopcionAceptada(gato) != null;
+    }
+
+    public boolean tienePostulacionesPendientes(Gato gato) {
+        return !traerPostulacionesPendientesPorGato(gato).isEmpty();
     }
 
     // GATOS

@@ -23,9 +23,6 @@ public class Veterinario extends Usuario implements Serializable {
     @OneToMany (mappedBy="vet")
     private List<RegistroMedico> registros = new ArrayList<>();
     
-    @OneToMany (mappedBy="vet")
-    private List<Gato> gatos = new ArrayList<>();    
-    
     public Veterinario() {
     }
 
@@ -33,14 +30,10 @@ public class Veterinario extends Usuario implements Serializable {
         super(id_usuario, nombre, email, password, telefono);
     }
     
-    public HistorialMedico accederHistorial(Gato g){
-        return g.getHistorial();
-    }
-    public void crearRegistro(Gato g, RegistroMedico r){
-        g.getHistorial().agregarRegistro(r);
-    }
-    public List<RegistroMedico> emitirCertificado(Gato g, String descripcion){
-        return g.getHistorial().getRegistros();
-    }
+
+
+    public void setRegistros(List<RegistroMedico> registros) {
+        this.registros = registros;
+    } 
     
 }

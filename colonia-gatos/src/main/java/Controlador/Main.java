@@ -9,21 +9,15 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import modelo.Tarea;
-import modelo.TipoTarea;
-import modelo.Usuario;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
 import javax.swing.SwingUtilities;
 import modelo.EstadoSalud;
 import modelo.FamiliaAdoptante;
 import modelo.Gato;
 import modelo.HistorialMedico;
+import modelo.Veterinario;
 import modelo.Zona;
 import persistencia.ControladoraPersistencia;
 import persistencia.HistorialMedicoJpaController;
-import persistencia.ZonaJpaController;
 import vista.VentanaInicioSesion;
 /**
  *
@@ -47,7 +41,6 @@ public class Main {
         */
         
         ControladoraPersistencia controlPersis = new ControladoraPersistencia();
-        ZonaJpaController zonaJpa = new ZonaJpaController();
         HistorialMedicoJpaController historialJpa = new HistorialMedicoJpaController();
         
             // Cargar gatos de prueba si no hay ninguno en la base
@@ -56,7 +49,7 @@ public class Main {
 
             Zona zonaCentro = new Zona();
             zonaCentro.setNombre("Centro");
-            zonaJpa.create(zonaCentro);
+            controlPersis.crearZona(zonaCentro);
             
             // Crear historial y persistirlo
             HistorialMedico hist1 = new HistorialMedico();
@@ -91,7 +84,7 @@ public class Main {
             
             Zona zonaNorte = new Zona();
             zonaNorte.setNombre("Norte");
-            zonaJpa.create(zonaNorte);
+            controlPersis.crearZona(zonaNorte);
             
             // historial 2
             HistorialMedico hist2 = new HistorialMedico();
@@ -126,6 +119,33 @@ public class Main {
         } else {
             System.out.println("\n\n\n\n\n\n\nYa hay gatos en la base, no se insertan de nuevo.\n\n\n\n\n");
         }
+        
+        
+        // Cargar veterinarios si no hay ninguno
+        if (controlPersis.traerVeterinarios().isEmpty()) {
+
+            System.out.println("No hay veterinarios, creando veterinarios de prueba...");
+
+            Veterinario v1 = new Veterinario();
+            v1.setNombre("Dr. López");
+            v1.setEmail("drlopez@example.com");
+            v1.setPassword("1234");
+            v1.setTelefono("111-222");
+
+            // Como Usuario usa SINGLE_TABLE, JPA se encarga de poner DTYPE=VETERINARIO
+            controlPersis.crearVeterinario(v1);
+
+            Veterinario v2 = new Veterinario();
+            v2.setNombre("Dra. Pérez");
+            v2.setEmail("draperez@example.com");
+            v2.setPassword("abcd");
+            v2.setTelefono("333-444");
+
+            controlPersis.crearVeterinario(v2);
+        }else {
+            System.out.println("\n\n\n\n\n\n\nYa hay veterinarios en la base, no se insertan de nuevo.\n\n\n\n\n");
+        }
+
         
         
         SwingUtilities.invokeLater(() -> {

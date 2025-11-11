@@ -25,3 +25,20 @@ class ReporteGatosAdoptados {
 
 
 agregar telefono a los usuarios
+
+la relacioón entre gato y veterinario pasa a ser N a N
+
+Veterinario: se quitan metodos
+    public HistorialMedico accederHistorial(Gato g){
+        return g.getHistorial();
+    }
+    public void crearRegistro(Gato g, RegistroMedico r){
+        g.getHistorial().agregarRegistro(r);
+    }
+    public List<RegistroMedico> emitirCertificado(Gato g, String descripcion){
+        return g.getHistorial().getRegistros();
+    }
+
+    public List<RegistroMedico> getRegistros() {
+        return registros;
+    }

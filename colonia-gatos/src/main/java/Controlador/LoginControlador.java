@@ -5,10 +5,12 @@
 package Controlador;
 
 import Controlador.familia.FamiliaControlador;
+import Controlador.veterinario.VeterinarioControlador;
 import Controlador.voluntario.VoluntarioControlador;
 import java.util.List;
 import modelo.FamiliaAdoptante;
 import modelo.Usuario;
+import modelo.Veterinario;
 import modelo.Voluntario;
 import persistencia.ControladoraPersistencia;
 import persistencia.UsuarioJpaController;
@@ -16,6 +18,7 @@ import vista.VentanaInicioSesion;
 import vista.VentanaPrincipal;
 import vista.VentanaRegistro;
 import vista.familia.PanelPrincipalFamiliaAdoptante;
+import vista.veterinario.PanelPrincipalVeterinario;
 import vista.voluntario.PanelPrincipalVoluntario;
 
 /**
@@ -87,6 +90,12 @@ public class LoginControlador{
             PanelPrincipalVoluntario panelVol = new PanelPrincipalVoluntario();
             new VoluntarioControlador(panelVol, (Voluntario) usuario);
             ventanaPrincipal.setPanelPrincipal(panelVol);
+        }
+        
+        if(usuario instanceof Veterinario){
+            PanelPrincipalVeterinario panelVet = new PanelPrincipalVeterinario();
+            new VeterinarioControlador(panelVet, (Veterinario) usuario);
+            ventanaPrincipal.setPanelPrincipal(panelVet);
         }
 
         ventanaPrincipal.setVisible(true);

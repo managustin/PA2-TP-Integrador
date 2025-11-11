@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import modelo.Gato;
 
@@ -35,8 +36,12 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
         panelRellenoIzq = new javax.swing.JPanel();
         panelRellenoDerecha = new javax.swing.JPanel();
         panelGatos = new javax.swing.JPanel();
+        panelGatosDisponibles = new javax.swing.JPanel();
         jScrollPane = new javax.swing.JScrollPane();
-        ListaGatos = new javax.swing.JList<>();
+        listaGatosNoAdoptados = new javax.swing.JList<>();
+        panelGatosAdoptados = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaGatosAdoptados = new javax.swing.JList<>();
         PanelBotones = new javax.swing.JPanel();
         btnVerGato = new javax.swing.JButton();
         btnRegistrarGato = new javax.swing.JButton();
@@ -88,16 +93,37 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
         panelGatos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 5, 1, 1));
         panelGatos.setMinimumSize(new java.awt.Dimension(500, 600));
         panelGatos.setPreferredSize(new java.awt.Dimension(500, 600));
-        panelGatos.setLayout(new java.awt.BorderLayout());
+        panelGatos.setLayout(new java.awt.GridLayout(1, 2, 50, 0));
 
-        ListaGatos.setModel(new javax.swing.AbstractListModel<String>() {
+        panelGatosDisponibles.setLayout(new java.awt.BorderLayout());
+
+        listaGatosNoAdoptados.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane.setViewportView(ListaGatos);
+        listaGatosNoAdoptados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane.setViewportView(listaGatosNoAdoptados);
 
-        panelGatos.add(jScrollPane, java.awt.BorderLayout.CENTER);
+        panelGatosDisponibles.add(jScrollPane, java.awt.BorderLayout.CENTER);
+
+        panelGatos.add(panelGatosDisponibles);
+
+        panelGatosAdoptados.setLayout(new java.awt.BorderLayout());
+
+        listaGatosAdoptados.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        listaGatosAdoptados.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(listaGatosAdoptados);
+
+        panelGatosAdoptados.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        panelGatos.add(panelGatosAdoptados);
+
+        add(panelGatos, java.awt.BorderLayout.CENTER);
 
         PanelBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 1, 30, 1));
         java.awt.GridBagLayout PanelBotonesLayout = new java.awt.GridBagLayout();
@@ -120,9 +146,7 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
         });
         PanelBotones.add(btnRegistrarGato, new java.awt.GridBagConstraints());
 
-        panelGatos.add(PanelBotones, java.awt.BorderLayout.SOUTH);
-
-        add(panelGatos, java.awt.BorderLayout.CENTER);
+        add(PanelBotones, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerGatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerGatoActionPerformed
@@ -135,13 +159,17 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> ListaGatos;
     private javax.swing.JPanel PanelBotones;
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnRegistrarGato;
     private javax.swing.JButton btnVerGato;
     private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listaGatosAdoptados;
+    private javax.swing.JList<String> listaGatosNoAdoptados;
     private javax.swing.JPanel panelGatos;
+    private javax.swing.JPanel panelGatosAdoptados;
+    private javax.swing.JPanel panelGatosDisponibles;
     private javax.swing.JPanel panelNorth;
     private javax.swing.JPanel panelRellenoDerecha;
     private javax.swing.JPanel panelRellenoIzq;
@@ -155,22 +183,29 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
         return btnVerGato;
     }
     
-    public void cargarListaGatosComoStrings(List<String> items) {
+    public void cargarListaGatosNoAdoptados(List<String> items) {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (String s : items) model.addElement(s);
-        ListaGatos.setModel(model); // setModel reemplaza el contenido visible de la JList
+        listaGatosNoAdoptados.setModel(model); // setModel reemplaza el contenido visible de la JList
     }
-    
-    public int getIndiceGatoSeleccionado() {
-        return ListaGatos.getSelectedIndex();
-    }
-
-    public javax.swing.JList<String> getListaGatos() {
-        return ListaGatos;
+    public void cargarListaGatosAdoptados(List<String> items) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (String s : items) model.addElement(s);
+        listaGatosAdoptados.setModel(model); // setModel reemplaza el contenido visible de la JList
     }
 
     public JButton getBtnRegistrarGato() {
         return btnRegistrarGato;
     }
+
+    public JList<String> getListaGatosAdoptados() {
+        return listaGatosAdoptados;
+    }
+
+    public JList<String> getListaGatosNoAdoptados() {
+        return listaGatosNoAdoptados;
+    }
+    
+    
 
 }
