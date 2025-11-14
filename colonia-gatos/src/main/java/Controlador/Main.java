@@ -15,9 +15,7 @@ import modelo.FamiliaAdoptante;
 import modelo.Gato;
 import modelo.HistorialMedico;
 import modelo.Veterinario;
-import modelo.Zona;
 import persistencia.ControladoraPersistencia;
-import persistencia.HistorialMedicoJpaController;
 import vista.VentanaInicioSesion;
 
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -48,9 +46,8 @@ public class Main {
         */
         
         ControladoraPersistencia controlPersis = new ControladoraPersistencia();
-        HistorialMedicoJpaController historialJpa = new HistorialMedicoJpaController();
         
-            // Cargar gatos de prueba si no hay ninguno en la base
+         /*   // Cargar gatos de prueba si no hay ninguno en la base - DESCOMENTAR Y MODIFICAR RUTAS PARA PONER IMAGENES DE GATOS DE PRUEBA, QUE COINCIDAN CON LOS NOMBRES
         if (controlPersis.traerGatos().isEmpty()) {
             System.out.println("No hay gatos, creando gatos de prueba...");
 
@@ -108,7 +105,6 @@ public class Main {
                 bytes2  = Files.readAllBytes(path);
             } catch (IOException e) {
                 e.printStackTrace();
-                // Podés decidir qué hacer: dejar null, tirar una runtime, etc.
             }
             g2.setFoto(bytes2);
             
@@ -125,7 +121,7 @@ public class Main {
             System.out.println("Gatos insertados en la base de datos.");
         } else {
             System.out.println("\n\n\n\n\n\n\nYa hay gatos en la base, no se insertan de nuevo.\n\n\n\n\n");
-        }
+        }*/
         
         
         // Cargar veterinarios si no hay ninguno
