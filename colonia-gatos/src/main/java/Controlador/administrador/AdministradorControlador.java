@@ -127,7 +127,7 @@ public class AdministradorControlador {
     
     private void abrirReporte() {
         if (ultimosFiltrados == null || ultimosFiltrados.isEmpty()) {
-            JOptionPane.showMessageDialog(vista, "No hay datos para mostrar.");
+            JOptionPane.showMessageDialog(vista, "No hay datos para mostrar. Asegurese de aplicar filtros.");
             return;
         }
         

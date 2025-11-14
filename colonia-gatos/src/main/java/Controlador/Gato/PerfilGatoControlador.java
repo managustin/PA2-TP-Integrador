@@ -55,6 +55,10 @@ public class PerfilGatoControlador {
         cargarFamiliasPostuladas();
         configurarEventos();
     }
+
+    public void setGato(Gato gato) {
+        this.gato = gato;
+    }
     
     private RolUsuario obtenerRol(Usuario u) {
         if (u instanceof FamiliaAdoptante) return RolUsuario.FAMILIA;
@@ -103,7 +107,7 @@ public class PerfilGatoControlador {
         vista.getBtnVerHistorialMedico().setVisible(true);
     }
     
-    private void mostrarDatos() {
+    public void mostrarDatos() {
         vista.setNombreGato(gato.getNombre());
         vista.setZona(gato.getZona().getNombre());
         vista.setEstado("Estado de Salud: " + gato.getEstadoSalud());
@@ -234,7 +238,7 @@ public class PerfilGatoControlador {
             vista,  // parent
             true   // modal
         );
-        new HistorialMedicoControlador(dialog, gato, (Veterinario) usuario, controlPersis);
+        new HistorialMedicoControlador(dialog, gato, (Veterinario) usuario, controlPersis, this);
         dialog.setLocationRelativeTo(vista);
         dialog.setVisible(true);
 

@@ -177,6 +177,18 @@ public class ControladoraPersistencia {
         return GatoJpa.findGatoEntities();
     }
     
+    public void actualizarGato(Gato gato) throws Exception {
+        GatoJpa.edit(gato);
+    }
+    
+    public Gato traerGatoPorId(int id) {
+        Gato g = GatoJpa.findGato(id);
+        g.setTareas(new ArrayList<>());
+        return g;
+    }
+
+
+    
     // VISITAS
     
     // Traer todas las visitas de seguimiento de un gato

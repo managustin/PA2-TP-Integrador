@@ -17,12 +17,15 @@ public class HistorialMedicoControlador {
     private Gato gato;
     private Veterinario veterinario;
     private ControladoraPersistencia controlPersis;
+    private PerfilGatoControlador perfilControlador;
     private List<RegistroMedico> registros;
 
-    public HistorialMedicoControlador(VentanaHistorialMedico vista, Gato gato, Veterinario veterinario, ControladoraPersistencia controlPersis) {
+    public HistorialMedicoControlador(VentanaHistorialMedico vista, Gato gato, Veterinario veterinario, ControladoraPersistencia controlPersis, PerfilGatoControlador perfilControlador) {
         this.vista = vista;
         this.gato = gato;
         this.veterinario = veterinario;
+        this.controlPersis = controlPersis;
+        this.perfilControlador = perfilControlador;
         
         mostrarDatos();
         configurarListeners();
@@ -31,7 +34,51 @@ public class HistorialMedicoControlador {
     private void configurarListeners(){
         vista.getBtnVerRegistro().addActionListener(e -> verRegistroSeleccionado());
         vista.getBtnAgregarRegistro().addActionListener(e -> abrirVentanaAgregarRegistroMedico());
+        vista.getBtnCertificado().addActionListener(e -> emitirCertificado());
     }
+    
+    private void emitirCertificado() {
+
+        // Confirmación inicial
+        int opcion = JOptionPane.showConfirmDialog(
+                vista,
+                "¿Emitir certificado de adopción?",
+                "Confirmar",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (opcion != JOptionPane.YES_OPTION) return;
+
+        // Mostrar mensaje final
+        JOptionPane.showMessageDialog(
+                vista,
+                "El gato " + gato.getNombre() + " está apto para adopción.",
+                "Certificado emitido",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+
+        // Cambiar estado
+        Gato gatoBD = controlPersis.traerGatoPorId(gato.getId_gato());  
+        gatoBD.setAptoParaAdopcion(true);
+        
+        gatoBD.getTareas().size();
+
+        try {
+            controlPersis.actualizarGato(gatoBD);
+            perfilControlador.setGato(controlPersis.traerGatoPorId(gato.getId_gato()));
+            perfilControlador.mostrarDatos();
+            System.out.println("Gato marcado apto para adopción");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(
+                    vista,
+                    "Error al actualizar el estado del gato.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            ex.printStackTrace();
+        }
+    }
+
     
     private void abrirVentanaAgregarRegistroMedico() {
         VentanaAgregarRegistroMedico dialog = new VentanaAgregarRegistroMedico(null, true);

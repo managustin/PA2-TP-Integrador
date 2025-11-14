@@ -135,7 +135,7 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
 
         add(panelGatos, java.awt.BorderLayout.CENTER);
 
-        PanelBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 1, 30, 1));
+        PanelBotones.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 1, 30, 30));
         java.awt.GridBagLayout PanelBotonesLayout = new java.awt.GridBagLayout();
         PanelBotonesLayout.columnWeights = new double[] {2.0, 0.0};
         PanelBotones.setLayout(PanelBotonesLayout);

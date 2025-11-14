@@ -19,6 +19,8 @@ import modelo.Zona;
 import persistencia.ControladoraPersistencia;
 import persistencia.HistorialMedicoJpaController;
 import vista.VentanaInicioSesion;
+
+import com.formdev.flatlaf.FlatDarkLaf;
 /**
  *
  * @author ms_ma
@@ -26,6 +28,11 @@ import vista.VentanaInicioSesion;
 public class Main {
 
     public static void main(String[] args) {
+        
+
+        
+
+
         System.out.println("Bienvenido al sistema de la colonia de gatos");
         /*
         Usuario u1 = new Usuario(1, "Juan", "correo@correo.com", "conTrasenia");
@@ -149,6 +156,7 @@ public class Main {
         
         
         SwingUtilities.invokeLater(() -> {
+            FlatDarkLaf.setup();
             VentanaInicioSesion v = new VentanaInicioSesion();
             LoginControlador ctrl = new LoginControlador(v);
             v.setLocationRelativeTo(null); // centra en pantalla
