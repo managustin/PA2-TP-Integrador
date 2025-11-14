@@ -85,4 +85,10 @@ public class Voluntario extends Usuario implements Serializable {
         
         g.agregarTarea(t);
     }
+    
+    @Override
+    public String toString() {
+        return "ID " + getId_usuario() + " - " + getNombre() + " (Zona: " + zona + ")";
+    }
+
 }

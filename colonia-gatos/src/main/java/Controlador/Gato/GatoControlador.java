@@ -27,13 +27,14 @@ public class GatoControlador {
     
     private VentanaRegistrarGato vista;
     private Voluntario voluntario;
+    private ControladoraPersistencia controlPersis;
     private byte[] fotoSeleccionada;
 
-    public GatoControlador(VentanaRegistrarGato vista, Voluntario voluntario) { /* Código para VentanaRegistrarGato*/
+    public GatoControlador(VentanaRegistrarGato vista, Voluntario voluntario, ControladoraPersistencia controlPersis) { /* Código para VentanaRegistrarGato*/
         this.vista = vista;
         this.voluntario = voluntario;
+        this.controlPersis = controlPersis;
         
-        ControladoraPersistencia controlPersis = new ControladoraPersistencia();
         this.vista.cargarZona(controlPersis.traerZonas());
         this.vista.cargarEstadoSalud(EstadoSalud.values());
         
@@ -45,7 +46,7 @@ public class GatoControlador {
     
     private void agregarZona(ControladoraPersistencia controlPersis){
         VentanaZona vistaZona = new VentanaZona(null, true);
-        ZonaControlador zonaCont = new ZonaControlador(vistaZona, this.voluntario);
+        ZonaControlador zonaCont = new ZonaControlador(vistaZona, this.voluntario, controlPersis);
         vista.cargarZona(controlPersis.traerZonas());
         
         vistaZona.setLocationRelativeTo(vista);

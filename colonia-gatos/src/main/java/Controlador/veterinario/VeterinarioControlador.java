@@ -12,12 +12,13 @@ import vista.veterinario.PanelPrincipalVeterinario;
 public class VeterinarioControlador {
     private PanelPrincipalVeterinario vista;
     private Veterinario veterinario;
-    ControladoraPersistencia controlPersis = new ControladoraPersistencia();
+    ControladoraPersistencia controlPersis;
     private List<Gato> gatos;
 
-    public VeterinarioControlador(PanelPrincipalVeterinario vista, Veterinario veterinario) {
+    public VeterinarioControlador(PanelPrincipalVeterinario vista, Veterinario veterinario, ControladoraPersistencia controlPersis) {
         this.vista = vista;
         this.veterinario = veterinario;
+        this.controlPersis = controlPersis;
         
         cargarGatos();
         configurarListeners();
@@ -51,7 +52,7 @@ public class VeterinarioControlador {
 
         VentanaPerfilGato dialog = new VentanaPerfilGato(null, true, seleccionado);
 
-        new PerfilGatoControlador(dialog, seleccionado, veterinario);
+        new PerfilGatoControlador(dialog, seleccionado, veterinario, controlPersis);
 
         dialog.setLocationRelativeTo(vista);
         dialog.setVisible(true);

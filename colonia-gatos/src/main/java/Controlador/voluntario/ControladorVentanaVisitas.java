@@ -22,11 +22,12 @@ public class ControladorVentanaVisitas {
     
     private VentanaVisitas vista;
     private Gato gato;
-    ControladoraPersistencia controlPersis = new ControladoraPersistencia();
+    ControladoraPersistencia controlPersis;
     
-    public ControladorVentanaVisitas(VentanaVisitas vista, Gato gato) {
+    public ControladorVentanaVisitas(VentanaVisitas vista, Gato gato, ControladoraPersistencia controlPersis) {
         this.vista = vista;
         this.gato = gato;
+        this.controlPersis = controlPersis;
         cargarVisitas();
         configurarEventos();
         

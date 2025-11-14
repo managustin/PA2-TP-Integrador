@@ -24,15 +24,15 @@ import vista.voluntario.PanelPrincipalVoluntario;
 public class VoluntarioControlador {
     private PanelPrincipalVoluntario vista;
     private Voluntario voluntario;
-    private ControladoraPersistencia controlPersistencia;
+    private ControladoraPersistencia controlPersis;
     private List<Gato> noAdoptados;
     private List<Gato> adoptados;
 
 
-    public VoluntarioControlador(PanelPrincipalVoluntario vista, Voluntario voluntario){
+    public VoluntarioControlador(PanelPrincipalVoluntario vista, Voluntario voluntario, ControladoraPersistencia controlPersis){
         this.vista = vista;
         this.voluntario = voluntario;
-        this.controlPersistencia = new ControladoraPersistencia();
+        this.controlPersis = controlPersis;
 
         cargarGatosDesdeBD();
         configurarListeners();
@@ -40,15 +40,15 @@ public class VoluntarioControlador {
     
     public void cargarGatosDesdeBD() {
 
-        List<Gato> todos = controlPersistencia.traerGatos();
+        List<Gato> todos = controlPersis.traerGatos();
 
         // separar adoptados vs no adoptados
         this.adoptados = todos.stream()
-            .filter(g -> controlPersistencia.tieneAdopcionActiva(g))
+            .filter(g -> controlPersis.tieneAdopcionActiva(g))
             .toList();
 
         this.noAdoptados = todos.stream()
-            .filter(g -> !controlPersistencia.tieneAdopcionActiva(g))
+            .filter(g -> !controlPersis.tieneAdopcionActiva(g))
             .toList();
 
         // formatear strings
@@ -69,7 +69,7 @@ public class VoluntarioControlador {
 
  
    private String formatearGato(Gato g) {
-        boolean tienePendientes = controlPersistencia.tienePostulacionesPendientes(g);
+        boolean tienePendientes = controlPersis.tienePostulacionesPendientes(g);
 
         String base = g.toString();
 
@@ -113,7 +113,7 @@ public class VoluntarioControlador {
     private void abrirVentanaRegistrarGato() {
         VentanaRegistrarGato dialog = new VentanaRegistrarGato(null, true);
 
-        new GatoControlador(dialog, voluntario); // si necesitás más params, pasalos acá
+        new GatoControlador(dialog, voluntario, controlPersis); // si necesitás más params, pasalos acá
 
         dialog.setLocationRelativeTo(vista);
         dialog.setVisible(true);
@@ -134,7 +134,7 @@ public class VoluntarioControlador {
         }
 
         VentanaPerfilGato dialog = new VentanaPerfilGato(null, true, seleccionado);
-        new PerfilGatoControlador(dialog, seleccionado, voluntario);
+        new PerfilGatoControlador(dialog, seleccionado, voluntario, controlPersis);
         dialog.setLocationRelativeTo(vista);
         dialog.setVisible(true);
         cargarGatosDesdeBD();

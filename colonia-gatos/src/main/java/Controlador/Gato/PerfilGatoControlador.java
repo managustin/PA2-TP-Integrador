@@ -42,11 +42,11 @@ public class PerfilGatoControlador {
     private Usuario usuario; // genérico
     private ControladoraPersistencia controlPersis;
 
-    public PerfilGatoControlador(VentanaPerfilGato vista, Gato gato, Usuario usuario) {
+    public PerfilGatoControlador(VentanaPerfilGato vista, Gato gato, Usuario usuario, ControladoraPersistencia controlPersis) {
         this.vista = vista;
         this.gato = gato;
         this.usuario = usuario;
-        this.controlPersis = new ControladoraPersistencia();
+        this.controlPersis = controlPersis;
         
         //habilitar/deshabilitar boton postular para familia
         ajustarBotonesSegunEstado();
@@ -234,7 +234,7 @@ public class PerfilGatoControlador {
             vista,  // parent
             true   // modal
         );
-        new HistorialMedicoControlador(dialog, gato, (Veterinario) usuario);
+        new HistorialMedicoControlador(dialog, gato, (Veterinario) usuario, controlPersis);
         dialog.setLocationRelativeTo(vista);
         dialog.setVisible(true);
 
@@ -248,7 +248,7 @@ public class PerfilGatoControlador {
             vista,  // parent
             true   // modal
         );
-        new RegistrarTareaControlador(dialog, gato, (Voluntario) usuario);
+        new RegistrarTareaControlador(dialog, gato, (Voluntario) usuario, controlPersis);
         dialog.setLocationRelativeTo(vista);
         dialog.setVisible(true);
 
@@ -263,7 +263,7 @@ public class PerfilGatoControlador {
         VentanaVisitas vistaVisitas = new VentanaVisitas(vista, true);
 
         // Crear el controlador y pasarle la vista y los datos necesarios
-        ControladorVentanaVisitas controladorVisitas = new ControladorVentanaVisitas(vistaVisitas, gato);
+        ControladorVentanaVisitas controladorVisitas = new ControladorVentanaVisitas(vistaVisitas, gato, controlPersis);
 
         // Mostrar la ventana
         vistaVisitas.setLocationRelativeTo(vista);

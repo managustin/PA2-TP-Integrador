@@ -7,6 +7,8 @@ package Controlador;
 import javax.swing.JOptionPane;
 import modelo.FamiliaAdoptante;
 import modelo.Usuario;
+import modelo.Veterinario;
+import modelo.Voluntario;
 import persistencia.ControladoraPersistencia;
 import vista.VentanaInicioSesion;
 import vista.VentanaRegistro;
@@ -18,10 +20,16 @@ import vista.VentanaRegistro;
 public class RegistroControlador {
     private VentanaRegistro vista;
     private ControladoraPersistencia controlPersis;
+    private final String tipoUsuario; // "FAMILIA" | "VOLUNTARIO" | "VETERINARIO"
+    private Runnable callback;
 
-    public RegistroControlador(VentanaRegistro vista) {
+
+    public RegistroControlador(VentanaRegistro vista, ControladoraPersistencia controlPersis, String tipoUsuario, Runnable callback) {
         this.vista = vista;
-        this.controlPersis = new ControladoraPersistencia();
+        this.controlPersis = controlPersis;
+        this.tipoUsuario = tipoUsuario;
+        this.callback = callback;
+        configurarVistaSegunTipo();
         
         configurarListeners();
     }
@@ -30,6 +38,16 @@ public class RegistroControlador {
         vista.getBtnRegistrarse().addActionListener(e -> procesarRegistrarse());
         vista.getBtnVolver().addActionListener(e -> volver());
     }
+    
+    private void configurarVistaSegunTipo() {
+        if (tipoUsuario.equals("FAMILIA")) {
+            vista.getPanelDireccion().setVisible(true);
+        } else {
+            vista.getBtnVolver().setVisible(false);
+            vista.getPanelDireccion().setVisible(false);
+        }
+    }
+
     
     private void volver() {
 
@@ -72,20 +90,48 @@ public class RegistroControlador {
                 return;
             }
 
-            // Crear y poblar la entidad
-            FamiliaAdoptante familia = new FamiliaAdoptante();
-            familia.setNombre(nombre);
-            familia.setEmail(email);
-            familia.setPassword(password);
-            familia.setTelefono(telefono);
-            familia.setDireccion(direccion);
+            // 1) Crear instancia correcta
+            Usuario nuevo;
+            switch (tipoUsuario) {
+                case "FAMILIA" -> nuevo = new FamiliaAdoptante();
+                case "VOLUNTARIO" -> nuevo = new Voluntario();
+                case "VETERINARIO" -> nuevo = new Veterinario();
+                default -> throw new IllegalArgumentException("Tipo desconocido: " + tipoUsuario);
+            }
 
-            // Persistir usando la ControladoraPersistencia
-            controlPersis.crearFamiliaAdoptante(familia);
-            System.out.println("GUARDADO OK");
+            // 2) Setear campos comunes
+            nuevo.setNombre(nombre);
+            nuevo.setEmail(email);
+            nuevo.setPassword(password);
+            nuevo.setTelefono(telefono);
 
-            JOptionPane.showMessageDialog(vista, "Registro exitoso. Ya puede iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            volver();
+            // 3) Setear campos específicos
+            if (nuevo instanceof FamiliaAdoptante fa) {
+                fa.setDireccion(vista.getTxtDireccion().getText().trim());
+            }
+
+            if (nuevo instanceof Voluntario vo) {
+                vo.setZona(null);  // o lo que corresponda
+            }
+
+            // 4) Persistir según tipo  
+            switch (tipoUsuario) {
+                case "FAMILIA" -> controlPersis.crearFamiliaAdoptante((FamiliaAdoptante) nuevo);
+                case "VOLUNTARIO" -> controlPersis.crearVoluntario((Voluntario) nuevo);
+                case "VETERINARIO" -> controlPersis.crearVeterinario((Veterinario) nuevo);
+            }
+
+            // 5) Mostrar mensaje
+            JOptionPane.showMessageDialog(vista, "Registro exitoso.", "OK", JOptionPane.INFORMATION_MESSAGE);
+
+            callback.run();  // refresca listas en AdminControlador
+
+            // 6) Decidir cierre
+            if (tipoUsuario.equals("FAMILIA")) {
+                volver(); // familia vuelve al login
+            } else {
+                vista.dispose(); // admin sigue en la pantalla actual
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(vista, "Error al registrar: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

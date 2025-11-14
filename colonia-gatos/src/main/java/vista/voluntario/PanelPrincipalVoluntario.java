@@ -39,9 +39,11 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
         panelGatosDisponibles = new javax.swing.JPanel();
         jScrollPane = new javax.swing.JScrollPane();
         listaGatosNoAdoptados = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
         panelGatosAdoptados = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaGatosAdoptados = new javax.swing.JList<>();
+        jLabel2 = new javax.swing.JLabel();
         PanelBotones = new javax.swing.JPanel();
         btnVerGato = new javax.swing.JButton();
         btnRegistrarGato = new javax.swing.JButton();
@@ -95,7 +97,7 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
         panelGatos.setPreferredSize(new java.awt.Dimension(500, 600));
         panelGatos.setLayout(new java.awt.GridLayout(1, 2, 50, 0));
 
-        panelGatosDisponibles.setLayout(new java.awt.BorderLayout());
+        panelGatosDisponibles.setLayout(new java.awt.BorderLayout(0, 10));
 
         listaGatosNoAdoptados.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -107,9 +109,13 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
 
         panelGatosDisponibles.add(jScrollPane, java.awt.BorderLayout.CENTER);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setText("Gatos No adoptados");
+        panelGatosDisponibles.add(jLabel1, java.awt.BorderLayout.PAGE_START);
+
         panelGatos.add(panelGatosDisponibles);
 
-        panelGatosAdoptados.setLayout(new java.awt.BorderLayout());
+        panelGatosAdoptados.setLayout(new java.awt.BorderLayout(0, 10));
 
         listaGatosAdoptados.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -120,6 +126,10 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
         jScrollPane1.setViewportView(listaGatosAdoptados);
 
         panelGatosAdoptados.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setText("Gatos adoptados");
+        panelGatosAdoptados.add(jLabel2, java.awt.BorderLayout.PAGE_START);
 
         panelGatos.add(panelGatosAdoptados);
 
@@ -163,6 +173,8 @@ public class PanelPrincipalVoluntario extends javax.swing.JPanel {
     private javax.swing.JLabel Titulo;
     private javax.swing.JButton btnRegistrarGato;
     private javax.swing.JButton btnVerGato;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listaGatosAdoptados;

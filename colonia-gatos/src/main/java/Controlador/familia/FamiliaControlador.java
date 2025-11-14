@@ -21,12 +21,12 @@ public class FamiliaControlador {
     
     private PanelPrincipalFamiliaAdoptante vista;
     private FamiliaAdoptante familia;
-    private ControladoraPersistencia controladora;
+    private ControladoraPersistencia controlPersis;
     
-    public FamiliaControlador(PanelPrincipalFamiliaAdoptante vista, FamiliaAdoptante familia) {
+    public FamiliaControlador(PanelPrincipalFamiliaAdoptante vista, FamiliaAdoptante familia, ControladoraPersistencia controlPersis) {
         this.vista = vista;
         this.familia = familia;
-        this.controladora = new ControladoraPersistencia();
+        this.controlPersis = controlPersis;
         saludoBienvenida();
         mostrarGatos();
         // después habrá listeners.
@@ -39,11 +39,11 @@ public class FamiliaControlador {
     }
     
     private void mostrarGatos() {
-        List<Gato> todos = controladora.traerGatos();
+        List<Gato> todos = controlPersis.traerGatos();
 
         // filtrar NO adoptados
         List<Gato> noAdoptados = todos.stream()
-            .filter(g -> !controladora.tieneAdopcionActiva(g))
+            .filter(g -> !controlPersis.tieneAdopcionActiva(g))
             .toList();
 
         vista.getPanelGatos().removeAll();
@@ -61,7 +61,7 @@ public class FamiliaControlador {
     
     private void abrirPerfilGato(Gato gato) {
         VentanaPerfilGato dialog = new VentanaPerfilGato(null, true, gato);
-        new PerfilGatoControlador(dialog, gato, this.familia);  // usuario = FamiliaAdoptante
+        new PerfilGatoControlador(dialog, gato, this.familia, controlPersis);  // usuario = FamiliaAdoptante
         dialog.setLocationRelativeTo(vista);
         dialog.setVisible(true);
     }   

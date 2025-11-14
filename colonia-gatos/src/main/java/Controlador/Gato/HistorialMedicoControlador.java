@@ -16,10 +16,10 @@ public class HistorialMedicoControlador {
     private VentanaHistorialMedico vista;
     private Gato gato;
     private Veterinario veterinario;
-    private ControladoraPersistencia controlPersis = new ControladoraPersistencia();
+    private ControladoraPersistencia controlPersis;
     private List<RegistroMedico> registros;
 
-    public HistorialMedicoControlador(VentanaHistorialMedico vista, Gato gato, Veterinario veterinario) {
+    public HistorialMedicoControlador(VentanaHistorialMedico vista, Gato gato, Veterinario veterinario, ControladoraPersistencia controlPersis) {
         this.vista = vista;
         this.gato = gato;
         this.veterinario = veterinario;

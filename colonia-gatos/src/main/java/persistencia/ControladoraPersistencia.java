@@ -39,6 +39,7 @@ public class ControladoraPersistencia {
     private VeterinarioJpaController veterinarioJpa = new VeterinarioJpaController();
     private HistorialMedicoJpaController HistorialJpa = new HistorialMedicoJpaController();
     private RegistroMedicoJpaController RegistroJpa = new RegistroMedicoJpaController();
+    private VoluntarioJpaController volJpa = new VoluntarioJpaController();
 
     public ControladoraPersistencia() {
     }
@@ -87,12 +88,28 @@ public class ControladoraPersistencia {
     public void crearUsuario(Usuario usuario) {
         usuarioJpa.create(usuario);
     }
+    public void crearVoluntario(Voluntario voluntario) {
+        usuarioJpa.create(voluntario);
+    }
 
     public List<Usuario> traerUsuarios(){
         return usuarioJpa.findUsuarioEntities();
     }
     
+    public void eliminarUsuario(int id) {
+        try {
+            usuarioJpa.destroy(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al eliminar usuario: " + e.getMessage(), e);
+        }
+    }
+   
     // ADOPCIONES
+    
+    public List<Adopcion> traerAdopciones() {
+        return adopcionJpa.findAdopcionEntities();
+    }   
+
     public void crearAdopcion(Adopcion adopcion) {
         adopcionJpa.create(adopcion);
     }
@@ -187,8 +204,12 @@ public class ControladoraPersistencia {
 
     // VOLUNTARIOS
     
+    public List<Voluntario> traerVoluntarios() {
+        return volJpa.findVoluntarioEntities();
+    }
+    
     public Voluntario buscarVoluntarioPorNombre(String nombre) {
-        VoluntarioJpaController volJpa = new VoluntarioJpaController();
+        
         EntityManager em = volJpa.getEntityManager();
         try {
             TypedQuery<Voluntario> query = em.createQuery(
@@ -240,5 +261,37 @@ public class ControladoraPersistencia {
     public List<FamiliaAdoptante> traerFamilias() {
         return familiaJpa.findFamiliaAdoptanteEntities();
     }
+    
+    public Zona buscarZonaPorNombre(String nombre) {
+        EntityManager em = ZonaJpa.getEntityManager();
+        try {
+            TypedQuery<Zona> query = em.createQuery(
+                    "SELECT z FROM Zona z WHERE z.nombre = :n",
+                    Zona.class);
+            query.setParameter("n", nombre);
+            List<Zona> res = query.getResultList();
+            return res.isEmpty() ? null : res.get(0);
+        } finally {
+            em.close();
+        }
+    }
+    
+    public void eliminarZona(Zona zona) {
+        try {
+            ZonaJpa.destroy(zona.getId_zona());
+        } catch (Exception e) {
+
+            // Si la causa es una constraint (zona usada por gatos)
+            if (e.getCause() != null && e.getCause().getCause() instanceof java.sql.SQLIntegrityConstraintViolationException) {
+                throw new RuntimeException("NO_SE_PUEDE_ELIMINAR_ZONA_REFERENCIADA");
+            }
+
+            // Cualquier otro error real
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
     
 }

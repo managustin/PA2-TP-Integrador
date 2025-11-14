@@ -28,22 +28,23 @@ public class RegistrarTareaControlador {
     private VentanaRegistrarTarea vista;
     private Gato gato;
     private Voluntario voluntario;
+    private ControladoraPersistencia controlPersis;
 
     List<TipoTarea> tipos = Arrays.asList(TipoTarea.values());
     
-    public RegistrarTareaControlador(VentanaRegistrarTarea vista, Gato gato, Voluntario voluntario) {
+    public RegistrarTareaControlador(VentanaRegistrarTarea vista, Gato gato, Voluntario voluntario, ControladoraPersistencia controlPersis) {
         this.vista = vista;
         this.gato = gato;
         this.voluntario = voluntario;
-        ControladoraPersistencia control = new ControladoraPersistencia();
+        this.controlPersis = controlPersis;
         
         vista.cargarTiposTarea(tipos);
         
         this.vista.setLblNombreVoluntario(voluntario.getNombre());
         
-        this.vista.cargarZona(control.traerZonas());
+        this.vista.cargarZona(controlPersis.traerZonas());
         
-        this.vista.getBtnAgregarZona().addActionListener(e -> agregarZona(control));
+        this.vista.getBtnAgregarZona().addActionListener(e -> agregarZona(controlPersis));
         
         this.vista.getBtnGuardar().addActionListener(e -> guardarTarea());
         
@@ -51,7 +52,7 @@ public class RegistrarTareaControlador {
     
     private void agregarZona(ControladoraPersistencia controlPersis){
         VentanaZona vistaZona = new VentanaZona(null, true);
-        ZonaControlador zonaCont = new ZonaControlador(vistaZona, this.voluntario);
+        ZonaControlador zonaCont = new ZonaControlador(vistaZona, this.voluntario, controlPersis);
         vista.cargarTiposTarea(tipos);
         vista.cargarZona(controlPersis.traerZonas());
         

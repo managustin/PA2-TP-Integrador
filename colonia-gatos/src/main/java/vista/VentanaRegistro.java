@@ -1,6 +1,7 @@
 package vista;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -46,7 +47,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(600, 700));
         setMinimumSize(new java.awt.Dimension(600, 400));
         setPreferredSize(new java.awt.Dimension(500, 800));
@@ -93,7 +94,7 @@ public class VentanaRegistro extends javax.swing.JFrame {
         panelNombre.setLayout(new java.awt.GridLayout(2, 1));
 
         labelNombre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelNombre.setText("Nombre o Apellido de la familia");
+        labelNombre.setText("Nombre o Apellido ");
         labelNombre.setToolTipText("");
         panelNombre.add(labelNombre);
         panelNombre.add(txtNombre);
@@ -233,6 +234,8 @@ public class VentanaRegistro extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
    
+    
+    
     public String getEmail(){
         return txtEmail.getText();
     }
@@ -270,6 +273,10 @@ public class VentanaRegistro extends javax.swing.JFrame {
 
     public JTextField getTxtTelefono() {
         return txtTelefono;
+    }
+
+    public JPanel getPanelDireccion() {
+        return panelDireccion;
     }
     
     

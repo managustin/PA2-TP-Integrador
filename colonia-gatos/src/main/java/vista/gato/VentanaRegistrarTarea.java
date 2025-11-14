@@ -88,7 +88,7 @@ public class VentanaRegistrarTarea extends javax.swing.JDialog {
 
         panelCentro.setMinimumSize(new java.awt.Dimension(400, 300));
         panelCentro.setPreferredSize(new java.awt.Dimension(400, 300));
-        panelCentro.setLayout(new java.awt.GridLayout(7, 1, 0, 25));
+        panelCentro.setLayout(new java.awt.GridLayout(6, 1, 0, 25));
 
         labelRegistrarse.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         labelRegistrarse.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);

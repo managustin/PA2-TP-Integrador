@@ -57,15 +57,20 @@ public class FamiliaAdoptante extends Usuario implements Serializable {
     }    
     
     public boolean yaPostuloPor(Gato gato) {
-    if (adopciones == null || adopciones.isEmpty()) return false;
-    for (Adopcion a : adopciones) {
-        if (a.getMichi() != null
-                && a.getMichi().getId_gato() == gato.getId_gato()
-                && a.getEstado() == EstadoAdopcion.PENDIENTE) {
-            return true;
+        if (adopciones == null || adopciones.isEmpty()) return false;
+        for (Adopcion a : adopciones) {
+            if (a.getMichi() != null
+                    && a.getMichi().getId_gato() == gato.getId_gato()
+                    && a.getEstado() == EstadoAdopcion.PENDIENTE) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
+
+    @Override
+    public String toString() {
+        return "ID " + getId_usuario() + " - " + getNombre() + " (Dir: " + direccion + ")";
+    }
 
 }

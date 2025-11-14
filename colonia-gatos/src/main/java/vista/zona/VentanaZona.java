@@ -4,8 +4,12 @@
  */
 package vista.zona;
 
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 
 /**
  *
@@ -28,130 +32,91 @@ public class VentanaZona extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        panelPrincipal = new javax.swing.JPanel();
-        panelRellenoIzq = new javax.swing.JPanel();
-        panelCentro = new javax.swing.JPanel();
+        panel = new javax.swing.JPanel();
         panelTitulo = new javax.swing.JPanel();
-        labelRegistrarse = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        panelReportes = new javax.swing.JPanel();
+        panelGatos = new javax.swing.JPanel();
+        panelReportesCentro = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listaZonas = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane = new javax.swing.JScrollPane();
-        ListaGatos = new javax.swing.JList<>();
-        panelNombre = new javax.swing.JPanel();
-        lblTipoTarea = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
-        panelBoton = new javax.swing.JPanel();
-        btnGuardar = new javax.swing.JButton();
-        panelRellenoDer = new javax.swing.JPanel();
+        btnEliminar = new javax.swing.JButton();
+        panelAgregar = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtNombre = new javax.swing.JTextPane();
+        btnAgregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        panelPrincipal.setMaximumSize(new java.awt.Dimension(10000, 2147483647));
-        panelPrincipal.setMinimumSize(new java.awt.Dimension(900, 800));
-        panelPrincipal.setPreferredSize(new java.awt.Dimension(900, 800));
-        panelPrincipal.setLayout(new java.awt.BorderLayout());
+        panel.setBorder(javax.swing.BorderFactory.createEmptyBorder(75, 100, 75, 100));
+        panel.setMinimumSize(new java.awt.Dimension(600, 400));
+        panel.setPreferredSize(new java.awt.Dimension(600, 400));
+        panel.setLayout(new java.awt.BorderLayout());
 
-        panelRellenoIzq.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 50, 1, 1));
-        panelRellenoIzq.setPreferredSize(new java.awt.Dimension(100, 1193));
+        panelTitulo.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 30, 30, 1));
 
-        javax.swing.GroupLayout panelRellenoIzqLayout = new javax.swing.GroupLayout(panelRellenoIzq);
-        panelRellenoIzq.setLayout(panelRellenoIzqLayout);
-        panelRellenoIzqLayout.setHorizontalGroup(
-            panelRellenoIzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 49, Short.MAX_VALUE)
-        );
-        panelRellenoIzqLayout.setVerticalGroup(
-            panelRellenoIzqLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 798, Short.MAX_VALUE)
-        );
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Zonas");
+        panelTitulo.add(jLabel1);
 
-        panelPrincipal.add(panelRellenoIzq, java.awt.BorderLayout.LINE_START);
+        panel.add(panelTitulo, java.awt.BorderLayout.NORTH);
 
-        panelCentro.setMinimumSize(new java.awt.Dimension(400, 300));
-        panelCentro.setPreferredSize(new java.awt.Dimension(400, 300));
-        panelCentro.setLayout(new java.awt.GridLayout(4, 1, 0, 35));
+        panelReportes.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 10, 1));
+        panelReportes.setLayout(new java.awt.GridBagLayout());
 
-        labelRegistrarse.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        labelRegistrarse.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        labelRegistrarse.setText("Zonas de Gatos");
-        labelRegistrarse.setToolTipText("");
-        labelRegistrarse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        panelTitulo.add(labelRegistrarse);
+        panelGatos.setLayout(new java.awt.GridLayout(1, 0, 0, 5));
 
-        panelCentro.add(panelTitulo);
+        panelReportesCentro.setLayout(new java.awt.BorderLayout(0, 15));
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        jScrollPane4.setViewportView(listaZonas);
 
-        ListaGatos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane.setViewportView(ListaGatos);
+        panelReportesCentro.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
-        jPanel1.add(jScrollPane, java.awt.BorderLayout.CENTER);
+        jPanel1.setLayout(new java.awt.GridLayout());
 
-        panelCentro.add(jPanel1);
+        btnEliminar.setText("Eliminar Zona");
+        jPanel1.add(btnEliminar);
 
-        panelNombre.setLayout(new java.awt.GridLayout(2, 1));
+        panelReportesCentro.add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
-        lblTipoTarea.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblTipoTarea.setText("Nombre de la Zona");
-        lblTipoTarea.setToolTipText("");
-        panelNombre.add(lblTipoTarea);
+        panelGatos.add(panelReportesCentro);
 
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
-        panelNombre.add(txtNombre);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        panelReportes.add(panelGatos, gridBagConstraints);
 
-        panelCentro.add(panelNombre);
+        panelAgregar.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 1, 1, 1));
+        panelAgregar.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
-        panelBoton.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 1, 1));
+        jScrollPane1.setViewportView(txtNombre);
 
-        btnGuardar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnGuardar.setText("Guardar");
-        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGuardarActionPerformed(evt);
-            }
-        });
-        panelBoton.add(btnGuardar);
+        panelAgregar.add(jScrollPane1);
 
-        panelCentro.add(panelBoton);
+        btnAgregar.setText("Agregar Zona");
+        panelAgregar.add(btnAgregar);
 
-        panelPrincipal.add(panelCentro, java.awt.BorderLayout.CENTER);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
+        panelReportes.add(panelAgregar, gridBagConstraints);
 
-        panelRellenoDer.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 50, 1, 1));
-        panelRellenoDer.setPreferredSize(new java.awt.Dimension(100, 1193));
+        panel.add(panelReportes, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout panelRellenoDerLayout = new javax.swing.GroupLayout(panelRellenoDer);
-        panelRellenoDer.setLayout(panelRellenoDerLayout);
-        panelRellenoDerLayout.setHorizontalGroup(
-            panelRellenoDerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelRellenoDerLayout.setVerticalGroup(
-            panelRellenoDerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 798, Short.MAX_VALUE)
-        );
-
-        panelPrincipal.add(panelRellenoDer, java.awt.BorderLayout.EAST);
-
-        getContentPane().add(panelPrincipal, java.awt.BorderLayout.CENTER);
+        getContentPane().add(panel, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,29 +156,46 @@ public class VentanaZona extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> ListaGatos;
-    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane;
-    private javax.swing.JLabel labelRegistrarse;
-    private javax.swing.JLabel lblTipoTarea;
-    private javax.swing.JPanel panelBoton;
-    private javax.swing.JPanel panelCentro;
-    private javax.swing.JPanel panelNombre;
-    private javax.swing.JPanel panelPrincipal;
-    private javax.swing.JPanel panelRellenoDer;
-    private javax.swing.JPanel panelRellenoIzq;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JList<String> listaZonas;
+    private javax.swing.JPanel panel;
+    private javax.swing.JPanel panelAgregar;
+    private javax.swing.JPanel panelGatos;
+    private javax.swing.JPanel panelReportes;
+    private javax.swing.JPanel panelReportesCentro;
     private javax.swing.JPanel panelTitulo;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextPane txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    public JButton getBtnGuardar() {
-        return btnGuardar;
+
+    
+    
+    public void cargarListaZonas(List<String> items) {
+        DefaultListModel<String> m = new DefaultListModel<>();
+        items.forEach(m::addElement);
+        listaZonas.setModel(m);
     }
 
-    public JTextField getTxtNombre() {
+    public JButton getBtnAgregar() {
+        return btnAgregar;
+    }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public JTextPane getTxtNombre() {
         return txtNombre;
     }
-    
 
+    public JList<String> getListaZonas() {
+        return listaZonas;
+    }
+
+    
 }

@@ -29,11 +29,12 @@ public class Veterinario extends Usuario implements Serializable {
     public Veterinario(int id_usuario, String nombre, String email, String password, String telefono) {
         super(id_usuario, nombre, email, password, telefono);
     }
-    
-
-
     public void setRegistros(List<RegistroMedico> registros) {
         this.registros = registros;
     } 
-    
+    @Override
+    public String toString() {
+        return "ID " + getId_usuario() + " - " + getNombre() + " (Veterinario)";
+    }
+
 }

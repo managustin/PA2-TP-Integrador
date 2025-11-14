@@ -18,7 +18,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[600, 700]"/>
     </Property>
@@ -148,7 +148,7 @@
                 <Component class="javax.swing.JLabel" name="labelNombre">
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="2"/>
-                    <Property name="text" type="java.lang.String" value="Nombre o Apellido de la familia"/>
+                    <Property name="text" type="java.lang.String" value="Nombre o Apellido "/>
                     <Property name="toolTipText" type="java.lang.String" value=""/>
                   </Properties>
                 </Component>

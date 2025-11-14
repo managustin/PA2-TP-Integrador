@@ -6,6 +6,7 @@ package vista;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
@@ -36,7 +37,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelContenido = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
+        ItemLogout = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -44,11 +45,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelContenido.setLayout(new java.awt.BorderLayout());
         getContentPane().add(panelContenido, java.awt.BorderLayout.CENTER);
 
-        jMenu1.setText("File");
-        jMenuBar1.add(jMenu1);
+        jMenu1.setText("Cuenta");
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        ItemLogout.setText("Cerrar Sesión");
+        jMenu1.add(ItemLogout);
+
+        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -81,8 +83,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem ItemLogout;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel panelContenido;
     // End of variables declaration//GEN-END:variables
@@ -94,4 +96,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelContenido.repaint();
     }
 
+    public JMenuItem getItemLogout() {
+        return ItemLogout;
+    }
+
+    
 }
