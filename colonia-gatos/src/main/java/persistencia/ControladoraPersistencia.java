@@ -9,6 +9,7 @@ import jakarta.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import modelo.Administrador;
 import modelo.Adopcion;
 import modelo.EstadoAdopcion;
 import modelo.FamiliaAdoptante;
@@ -43,6 +44,31 @@ public class ControladoraPersistencia {
 
     public ControladoraPersistencia() {
     }
+    
+    public void crearAdministrador(Administrador admin){
+        AdminJpa.create(admin);
+    }
+    
+    public List<Usuario> traerUsuariosTipo(String tipo) {
+        List<Usuario> todos = traerUsuarios(); // método que ya devuelve todos los usuarios
+        return todos.stream()
+                    .filter(u -> {
+                        switch (tipo.toUpperCase()) {
+                            case "ADMIN":
+                                return u instanceof Administrador;
+                            case "VETERINARIO":
+                                return u instanceof Veterinario;
+                            case "VOLUNTARIO":
+                                return u instanceof Voluntario;
+                            case "FAMILIA":
+                                return u instanceof FamiliaAdoptante;
+                            default:
+                                return false;
+                        }
+                    })
+                    .toList();
+    }
+
     
     // VETERINARIOS
 

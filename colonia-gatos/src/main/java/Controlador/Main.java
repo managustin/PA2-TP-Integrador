@@ -19,6 +19,7 @@ import persistencia.ControladoraPersistencia;
 import vista.VentanaInicioSesion;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import modelo.Administrador;
 /**
  *
  * @author ms_ma
@@ -124,32 +125,20 @@ public class Main {
         }*/
         
         
-        // Cargar veterinarios si no hay ninguno
-        if (controlPersis.traerVeterinarios().isEmpty()) {
+        // Cargar admin si no hay ninguno
+        if (controlPersis.traerUsuariosTipo("ADMIN").isEmpty()) {
+            System.out.println("No hay administradores, creando admin de prueba...");
 
-            System.out.println("No hay veterinarios, creando veterinarios de prueba...");
+            Administrador admin = new Administrador();
+            admin.setNombre("Administrador Prueba");
+            admin.setEmail("admin@test.com");
+            admin.setPassword("admin123");
+            admin.setTelefono("1122334455");
 
-            Veterinario v1 = new Veterinario();
-            v1.setNombre("Dr. López");
-            v1.setEmail("drlopez@example.com");
-            v1.setPassword("1234");
-            v1.setTelefono("111-222");
-
-            // Como Usuario usa SINGLE_TABLE, JPA se encarga de poner DTYPE=VETERINARIO
-            controlPersis.crearVeterinario(v1);
-
-            Veterinario v2 = new Veterinario();
-            v2.setNombre("Dra. Pérez");
-            v2.setEmail("draperez@example.com");
-            v2.setPassword("abcd");
-            v2.setTelefono("333-444");
-
-            controlPersis.crearVeterinario(v2);
-        }else {
-            System.out.println("\n\n\n\n\n\n\nYa hay veterinarios en la base, no se insertan de nuevo.\n\n\n\n\n");
+            controlPersis.crearAdministrador(admin);
+        } else {
+            System.out.println("Ya hay administradores en la base, no se insertan de nuevo.");
         }
-
-        
         
         SwingUtilities.invokeLater(() -> {
             FlatDarkLaf.setup();
